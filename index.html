@@ -1,1 +1,132 @@
 
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+<meta charset="UTF-8">  
+<meta name="viewport" content="width=device-width, initial-scale=1.0">  
+<title>Qais Smart Teacher</title>  
+<style>  
+*{box-sizing:border-box}  
+body{margin:0;font-family:Arial,sans-serif;background:#f0f8ff;color:#24324a;text-align:center}  
+header{background:#6558d3;color:white;padding:24px 12px;border-radius:0 0 28px 28px}  
+header h1{margin:0;font-size:30px}  
+header p{margin-bottom:0}  
+main{max-width:800px;margin:auto;padding:16px}  
+.card{background:white;border-radius:22px;padding:20px;margin:16px 0;box-shadow:0 4px 14px #00000010}  
+button{border:0;border-radius:14px;padding:13px 18px;margin:6px;background:#6558d3;color:white;font-size:17px;cursor:pointer}  
+button:active{transform:scale(.97)}  
+.word{font-size:38px;font-weight:bold;color:#5145b5;margin:12px}  
+.picture{font-size:75px;margin:8px}  
+.option{background:#e8f4ff;color:#24324a;min-width:110px}  
+#feedback{font-size:19px;font-weight:bold}  
+footer{padding:20px;color:#64748b}  
+</style>  
+</head>  
+<body>  
+<header>  
+<h1>🌟 Qais Smart Teacher 🌟</h1>  
+<p>Learn English, one happy step at a time!</p>  
+<p>Welcome, Qais! 👋</p>  
+</header>  
+<main>  
+<section class="card">  
+<h2>📚 My English Lessons</h2>  
+<p>Choose a word, see its picture, and listen!</p>  
+<div id="picture" class="picture">🍎</div>  
+<div id="word" class="word">Apple</div>  
+<p id="translation">تفاحة</p>  
+<button onclick="speakWord()">🔊 Listen</button>  
+<button onclick="previousWord()">⬅ Previous</button>  
+<button onclick="nextWord()">Next ➡</button>  
+</section>  <section class="card">  
+<h2>🎯 Quick Quiz</h2>  
+<p id="question">Which word means تفاحة?</p>  
+<div id="options"></div>  
+<p id="feedback" aria-live="polite"></p>  
+<p>Score: <span id="score">0</span></p>  
+<button onclick="newQuestion()">Next Question ➡</button>  
+</section>  <section class="card">  
+<h2>🏆 Qais's Progress</h2>  
+<p>Quiz points: <strong id="total">0</strong></p>  
+<p>Questions answered: <strong id="answered">0</strong></p>  
+<p>Correct answers: <strong id="correct">0</strong></p>  
+<p>Keep learning, Qais! You are doing great! ⭐</p>  
+<button onclick="resetProgress()">Reset Progress</button>  
+</section>  
+</main>  
+<footer>Made with ❤️ for Qais</footer>  <script>  
+const words=[  
+{en:"Apple",ar:"تفاحة",pic:"🍎"},  
+{en:"Book",ar:"كتاب",pic:"📘"},  
+{en:"Cat",ar:"قطة",pic:"🐱"},  
+{en:"Dog",ar:"كلب",pic:"🐶"},  
+{en:"Sun",ar:"شمس",pic:"☀️"},  
+{en:"Ball",ar:"كرة",pic:"⚽"},  
+{en:"Fish",ar:"سمكة",pic:"🐟"},  
+{en:"School",ar:"مدرسة",pic:"🏫"},  
+{en:"Water",ar:"ماء",pic:"💧"},  
+{en:"Bird",ar:"طائر",pic:"🐦"}  
+];  
+let index=0,score=0,answered=0,correct=0,current=null,locked=false;  
+try{  
+score=Number(localStorage.getItem("qaisScore")||0);  
+answered=Number(localStorage.getItem("qaisAnswered")||0);  
+correct=Number(localStorage.getItem("qaisCorrect")||0);  
+}catch(e){}  
+function showWord(){  
+const w=words[index];  
+document.getElementById("word").textContent=w.en;  
+document.getElementById("translation").textContent=w.ar;  
+document.getElementById("picture").textContent=w.pic;  
+}  
+function speakWord(){  
+if(!("speechSynthesis" in window)){alert("Audio speech is not supported in this browser.");return;}  
+speechSynthesis.cancel();  
+const u=new SpeechSynthesisUtterance(words[index].en);  
+u.lang="en-US";u.rate=0.8;speechSynthesis.speak(u);  
+}  
+function nextWord(){index=(index+1)%words.length;showWord();}  
+function previousWord(){index=(index-1+words.length)%words.length;showWord();}  
+function saveProgress(){  
+try{  
+localStorage.setItem("qaisScore",score);  
+localStorage.setItem("qaisAnswered",answered);  
+localStorage.setItem("qaisCorrect",correct);  
+}catch(e){}  
+document.getElementById("score").textContent=score;  
+document.getElementById("total").textContent=score;  
+document.getElementById("answered").textContent=answered;  
+document.getElementById("correct").textContent=correct;  
+}  
+function newQuestion(){  
+locked=false;  
+document.getElementById("feedback").textContent="";  
+current=words[Math.floor(Math.random()*words.length)];  
+document.getElementById("question").textContent="Which word means "+current.ar+"?";  
+const choices=[current];  
+while(choices.length<3){  
+const w=words[Math.floor(Math.random()*words.length)];  
+if(!choices.includes(w))choices.push(w);  
+}  
+choices.sort(()=>Math.random()-0.5);  
+const box=document.getElementById("options");box.innerHTML="";  
+choices.forEach(w=>{  
+const b=document.createElement("button");  
+b.className="option";b.textContent=w.en;  
+b.onclick=()=>checkAnswer(w,b);  
+box.appendChild(b);  
+});  
+}  
+function checkAnswer(w,b){  
+if(locked)return;locked=true;answered++;  
+if(w===current){correct++;score++;document.getElementById("feedback").textContent="🎉 Correct! Well done!";}  
+else{document.getElementById("feedback").textContent="😊 Good try! The answer is "+current.en+"."; }  
+saveProgress();  
+}  
+function resetProgress(){  
+if(confirm("Reset all progress?")){  
+score=0;answered=0;correct=0;saveProgress();newQuestion();  
+}  
+}  
+showWord();saveProgress();newQuestion();  
+</script>  </body>  
+</html>  هذا عادنا ماشي عملته
