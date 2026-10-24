@@ -3,164 +3,180 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#155eef">
 <title>أكاديمية قيس للمعلم الذكي</title>
 <style>
-:root{--blue:#155eef;--navy:#102a56;--bg:#f3f6fc;--green:#15976b;--orange:#ffb020}
+:root{--blue:#155eef;--navy:#102a56;--bg:#f3f6fc;--green:#15976b}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:#17243b;font-family:Tahoma,Arial,sans-serif;line-height:1.8}
-header{background:linear-gradient(135deg,#155eef,#6138c8);color:white;padding:24px 16px;text-align:center}
-header h1{margin:0;font-size:27px}
-header p{margin:5px 0}
-nav{display:flex;gap:8px;padding:12px;overflow-x:auto;background:white;position:sticky;top:0;z-index:5;box-shadow:0 2px 10px #152b5010}
-button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 15px;background:var(--blue);color:white}
+header{background:linear-gradient(135deg,#155eef,#6138c8);color:white;padding:24px 14px;text-align:center}
+header h1{margin:0;font-size:25px}
+nav{display:flex;gap:7px;padding:10px;background:white;overflow-x:auto;position:sticky;top:0;z-index:5}
+button{font:inherit;border:0;border-radius:11px;padding:10px 14px;background:var(--blue);color:white;cursor:pointer;margin:3px}
 nav button{white-space:nowrap;background:#edf2ff;color:#1744a3}
 nav button.active{background:var(--blue);color:white}
-main{max-width:1050px;margin:auto;padding:16px}
-.panel,.card{background:white;border-radius:18px;padding:18px;margin-bottom:15px;box-shadow:0 5px 22px #243b6010}
-h2,h3{margin-top:0}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}
-.stat{background:#f0f5ff;padding:15px;border-radius:14px;text-align:center}
-.stat strong{display:block;font-size:27px;color:var(--blue)}
-.muted{color:#64748b;font-size:14px}
-input,select{font:inherit;padding:11px;border:1px solid #ccd5e4;border-radius:10px;width:100%;margin:5px 0 12px;background:white}
+main{max-width:950px;margin:auto;padding:12px}
+.panel,.card{background:white;border-radius:17px;padding:17px;margin-bottom:14px;box-shadow:0 4px 18px #243b6010}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
+.stat{background:#f0f5ff;padding:13px;border-radius:12px;text-align:center}
+.stat strong{display:block;font-size:25px;color:var(--blue)}
+input,select,textarea{font:inherit;padding:11px;border:1px solid #ccd5e4;border-radius:10px;width:100%;margin:5px 0 12px;background:white}
 label{display:block;font-weight:bold}
-.lesson-card{border:1px solid #e4eaf4;border-radius:14px;padding:14px;margin:10px 0}
-.lesson-card p{margin:5px 0}
-.primary{background:var(--blue)}
-.secondary{background:#e9efff;color:#1744a3}
-.success{background:#e8f8f0;color:#08734c;padding:12px;border-radius:12px}
-.warning{background:#fff5df;color:#815500;padding:12px;border-radius:12px}
-.option{display:block;width:100%;text-align:right;margin:8px 0;background:#f0f4fc;color:#182c4c;border:1px solid #dfe6f1}
-.option:focus,.option:hover{background:#dce8ff}
-.option:disabled{cursor:default;opacity:1}
 .hidden{display:none!important}
-.progress{height:12px;background:#e3e9f3;border-radius:99px;overflow:hidden}
-.progress div{height:100%;background:linear-gradient(90deg,#155eef,#36c89b);width:0;transition:width .3s}
-footer{text-align:center;color:#64748b;padding:25px}
-.badge{display:inline-block;background:#fff3c4;color:#815500;padding:7px 12px;border-radius:99px;margin:4px}
-.big{font-size:42px}
-@media(max-width:500px){header h1{font-size:22px}main{padding:10px}.panel{padding:14px}}
+.muted{color:#64748b;font-size:14px}
+.secondary{background:#e9efff;color:#1744a3}
+.success{background:#e8f8f0;padding:12px;border-radius:10px}
+.warning{background:#fff5df;padding:12px;border-radius:10px}
+.lesson{border:1px solid #e1e8f3;border-radius:13px;padding:13px;margin:10px 0}
+.option{display:block;width:100%;text-align:right;background:#f0f4fc;color:#182c4c;margin:7px 0}
+.option:disabled{opacity:1}
+.progress{height:11px;background:#e3e9f3;border-radius:20px;overflow:hidden}
+.progress div{height:100%;background:#20b486;width:0}
+.avatar{width:130px;height:130px;border-radius:50%;margin:auto;background:linear-gradient(135deg,#155eef,#6138c8);display:flex;align-items:center;justify-content:center;font-size:76px;border:5px solid #e4ecff}
+.avatar.talking{animation:bob .45s infinite alternate}
+@keyframes bob{from{transform:translateY(0)}to{transform:translateY(-4px)}}
+.chat{background:#f4f7fc;border-radius:12px;padding:12px;min-height:75px;white-space:pre-wrap}
+.badge{display:inline-block;background:#fff3c4;color:#815500;padding:6px 10px;border-radius:20px;margin:4px}
+footer{text-align:center;color:#64748b;padding:20px}
+@media(max-width:500px){header h1{font-size:21px}.panel{padding:13px}}
 </style>
 </head>
 <body>
 <header>
-  <div class="big">🎓</div>
-  <h1>أكاديمية قيس للمعلم الذكي</h1>
-  <p>نتعلم بذكاء، نتقدم بثقة، وننجح معًا 🌟</p>
+<div style="font-size:42px">🎓</div>
+<h1>أكاديمية قيس للمعلم الذكي</h1>
+<p>نتعلم بذكاء، نتقدم بثقة، وننجح معًا 🌟</p>
 </header>
 
-<nav id="nav">
-  <button class="active" data-page="home">الرئيسية</button>
-  <button data-page="lessons">الدروس</button>
-  <button data-page="quiz">الاختبارات</button>
-  <button data-page="games">التحديات</button>
-  <button data-page="teacher">لوحة المعلم</button>
-  <button data-page="settings">الإعدادات</button>
+<nav>
+<button class="active" data-page="home">الرئيسية</button>
+<button data-page="qais">المعلم قيس 🤖</button>
+<button data-page="lessons">الدروس</button>
+<button data-page="quiz">الاختبارات</button>
+<button data-page="games">التحديات</button>
+<button data-page="teacher">لوحة المعلم</button>
+<button data-page="settings">الإعدادات</button>
 </nav>
 
 <main>
 <section id="home" class="page">
-  <div class="panel">
-    <h2>أهلًا بك في أكاديمية قيس! 👋</h2>
-    <label for="studentName">اسم الطالب</label>
-    <input id="studentName" maxlength="40" placeholder="اكتب اسمك هنا">
-    <button onclick="saveName()">حفظ الاسم</button>
-    <p id="welcome"></p>
-  </div>
+<div class="panel">
+<h2>أهلًا بك في أكاديمية قيس! 👋</h2>
+<label for="studentName">اسم الطالب</label>
+<input id="studentName" maxlength="40" placeholder="اكتب اسمك">
+<button onclick="saveName()">حفظ الاسم</button>
+<p id="welcome"></p>
+</div>
+<div class="grid">
+<div class="stat">⭐ النقاط<strong id="points">0</strong></div>
+<div class="stat">📘 الدروس المكتملة<strong id="completed">0</strong></div>
+<div class="stat">📝 الاختبارات<strong id="attempts">0</strong></div>
+<div class="stat">🏆 الشارات<strong id="badgesCount">0</strong></div>
+</div>
+<div class="panel">
+<h3>رحلتك التعليمية</h3>
+<div class="progress"><div id="progressBar"></div></div>
+<p id="progressText" class="muted"></p>
+<button onclick="showPage('lessons')">تابع التعلم</button>
+<button onclick="showPage('qais')">تحدث مع قيس 🎙️</button>
+</div>
+<div class="panel">
+<h3>رسالة قيس لك</h3>
+<p id="dailyMessage">كل خطوة صغيرة تقربك من النجاح!</p>
+<button onclick="speak(dailyMessage.textContent)">🔊 استمع إلى قيس</button>
+<button class="secondary" onclick="stopSpeech()">إيقاف</button>
+</div>
+</section>
 
-  <div class="grid">
-    <div class="stat">⭐ النقاط<strong id="points">0</strong></div>
-    <div class="stat">📘 الدروس المكتملة<strong id="completed">0</strong></div>
-    <div class="stat">📝 الاختبارات<strong id="attempts">0</strong></div>
-    <div class="stat">🏆 الشارات<strong id="badgesCount">0</strong></div>
-  </div>
-
-  <div class="panel">
-    <h3>رحلتك التعليمية</h3>
-    <div class="progress"><div id="progressBar"></div></div>
-    <p id="progressText" class="muted"></p>
-    <button onclick="showPage('lessons')">تابع التعلم ←</button>
-  </div>
-
-  <div class="panel">
-    <h3>رسالة قيس لك 🤖</h3>
-    <p id="dailyMessage">كل خطوة صغيرة تقربك من النجاح. هيا نتعلم!</p>
-    <button onclick="speak(document.getElementById('dailyMessage').textContent)">🔊 استمع إلى قيس</button>
-    <button class="secondary" onclick="stopSpeech()">إيقاف الصوت</button>
-  </div>
+<section id="qais" class="page hidden">
+<div class="panel" style="text-align:center">
+<h2>🤖 معلمك الذكي قيس</h2>
+<div class="avatar" id="avatar">👨🏻‍🏫</div>
+<p>السلام عليكم يا بطل! اكتب سؤالك أو استخدم الميكروفون.</p>
+<div class="warning" id="aiNotice">
+هذه النسخة توفر صوت المتصفح وردودًا تعليمية أولية. المحادثة الذكية الحقيقية تحتاج إلى توصيل خادم ذكاء اصطناعي آمن.
+</div>
+<label for="question">ما الذي تريد أن تتعلمه؟</label>
+<textarea id="question" rows="3" maxlength="1500" placeholder="مثال: يا قيس، اشرح لي عملية الجمع"></textarea>
+<button onclick="askQais()">💬 اسأل قيس</button>
+<button id="micBtn" class="secondary" onclick="listenToStudent()">🎙️ تحدث إلى قيس</button>
+<button class="secondary" onclick="stopSpeech()">⏹ إيقاف الصوت</button>
+<div style="text-align:right;margin-top:15px">
+<h3>رد قيس:</h3>
+<div id="answer" class="chat">أنا قيس، معلمك المساعد. اكتب سؤالًا لنبدأ التعلم!</div>
+</div>
+<p class="muted">قد لا يتوفر التعرف على الصوت في بعض المتصفحات. اسمح باستخدام الميكروفون عند الطلب.</p>
+</div>
 </section>
 
 <section id="lessons" class="page hidden">
-  <div class="panel">
-    <h2>📚 مكتبة الدروس</h2>
-    <p class="muted">دروس نموذجية قابلة للتعديل. راجع توافقها مع كتابك المدرسي قبل اعتمادها.</p>
-    <div id="lessonList"></div>
-  </div>
-  <div id="lessonView" class="panel hidden"></div>
+<div class="panel">
+<h2>📚 مكتبة الدروس</h2>
+<p class="muted">دروس نموذجية؛ راجع توافقها مع الكتاب المدرسي قبل اعتمادها.</p>
+<div id="lessonList"></div>
+</div>
+<div id="lessonView" class="panel hidden"></div>
 </section>
 
 <section id="quiz" class="page hidden">
-  <div class="panel">
-    <h2>📝 اختبر معلوماتك</h2>
-    <p>اختر الإجابة الصحيحة لتحصل على النقاط.</p>
-    <label for="quizSubject">المادة</label>
-    <select id="quizSubject" onchange="startQuiz()">
-      <option value="all">جميع المواد</option>
-      <option value="science">العلوم</option>
-      <option value="math">الرياضيات</option>
-      <option value="arabic">اللغة العربية</option>
-    </select>
-    <div id="quizArea"></div>
-  </div>
+<div class="panel">
+<h2>📝 اختبر معلوماتك</h2>
+<label for="quizSubject">المادة</label>
+<select id="quizSubject" onchange="startQuiz()">
+<option value="all">جميع المواد</option>
+<option value="science">العلوم</option>
+<option value="math">الرياضيات</option>
+<option value="arabic">اللغة العربية</option>
+</select>
+<div id="quizArea"></div>
+</div>
 </section>
 
 <section id="games" class="page hidden">
-  <div class="panel">
-    <h2>🎮 تحدي قيس اليوم</h2>
-    <p>أجب عن خمسة أسئلة متنوعة. تحصل على نقاط لكل إجابة صحيحة.</p>
-    <button onclick="startGame()">ابدأ التحدي</button>
-    <div id="gameArea"></div>
-  </div>
-  <div class="panel">
-    <h3>🏅 شاراتك</h3>
-    <div id="badgesList"></div>
-  </div>
+<div class="panel">
+<h2>🎮 تحدي قيس</h2>
+<p>أجب عن خمسة أسئلة متنوعة لتحصل على النقاط.</p>
+<button onclick="startGame()">ابدأ التحدي</button>
+<div id="gameArea"></div>
+</div>
+<div class="panel">
+<h3>🏅 شاراتك</h3>
+<div id="badgesList"></div>
+</div>
 </section>
 
 <section id="teacher" class="page hidden">
-  <div class="panel">
-    <h2>📊 لوحة متابعة التعلم</h2>
-    <p class="muted">هذه إحصاءات محفوظة على هذا الجهاز لهذا المتصفح، وليست سجلات مركزية لجميع الطلاب.</p>
-    <div class="grid">
-      <div class="stat">اسم الطالب<strong id="teacherName" style="font-size:20px">طالب</strong></div>
-      <div class="stat">النقاط<strong id="teacherPoints">0</strong></div>
-      <div class="stat">نسبة إكمال الدروس<strong id="teacherProgress">0%</strong></div>
-      <div class="stat">أفضل نتيجة<strong id="bestScore">0%</strong></div>
-    </div>
-    <h3>سجل النتائج</h3>
-    <div id="history"></div>
-    <button onclick="exportData()">⬇️ تصدير تقرير الطالب</button>
-    <button class="secondary" onclick="window.print()">🖨️ طباعة التقرير</button>
-  </div>
+<div class="panel">
+<h2>📊 لوحة متابعة الطالب</h2>
+<p class="muted">البيانات محفوظة محليًا في هذا المتصفح فقط.</p>
+<div class="grid">
+<div class="stat">الطالب<strong id="teacherName">طالب</strong></div>
+<div class="stat">النقاط<strong id="teacherPoints">0</strong></div>
+<div class="stat">الإكمال<strong id="teacherProgress">0%</strong></div>
+<div class="stat">أفضل نتيجة<strong id="bestScore">0%</strong></div>
+</div>
+<h3>سجل النتائج</h3>
+<div id="history"></div>
+<button onclick="exportData()">تصدير تقرير الطالب</button>
+<button class="secondary" onclick="window.print()">طباعة</button>
+</div>
 </section>
 
 <section id="settings" class="page hidden">
-  <div class="panel">
-    <h2>⚙️ الإعدادات</h2>
-    <label for="voiceSelect">الصوت العربي المتاح على جهازك</label>
-    <select id="voiceSelect"></select>
-    <button onclick="testVoice()">تجربة الصوت</button>
-    <button class="secondary" onclick="stopSpeech()">إيقاف الصوت</button>
-    <hr style="border:0;border-top:1px solid #e3e9f3;margin:20px 0">
-    <h3>بيانات الأكاديمية</h3>
-    <p class="muted">يُحفظ التقدم تلقائيًا في هذا المتصفح. مسح بيانات المتصفح قد يؤدي إلى فقدان البيانات.</p>
-    <button class="secondary" onclick="exportData()">تصدير نسخة احتياطية</button>
-    <label for="importFile">استعادة نسخة احتياطية</label>
-    <input id="importFile" type="file" accept=".json,application/json">
-    <button onclick="importData()">استعادة البيانات</button>
-  </div>
+<div class="panel">
+<h2>⚙️ الإعدادات</h2>
+<label for="voiceSelect">الصوت المتاح على جهازك</label>
+<select id="voiceSelect"></select>
+<button onclick="testVoice()">تجربة الصوت</button>
+<button class="secondary" onclick="stopSpeech()">إيقاف الصوت</button>
+<hr>
+<p class="muted">احفظ نسخة احتياطية من بيانات الطالب بانتظام.</p>
+<button onclick="exportData()">⬇️ تصدير نسخة احتياطية</button>
+<label for="importFile">استعادة نسخة احتياطية</label>
+<input id="importFile" type="file" accept=".json,application/json">
+<button onclick="importData()">استعادة البيانات</button>
+</div>
 </section>
 </main>
 
@@ -168,26 +184,189 @@ footer{text-align:center;color:#64748b;padding:25px}
 
 <script>
 "use strict";
-
-const KEY = "qais_academy_v2";
-
-const lessons = [
- {id:1,subject:"science",name:"الكائنات الحية",title:"ما الكائنات الحية؟",text:"الكائنات الحية أشياء تنمو وتحتاج إلى ظروف مناسبة للحياة. من أمثلتها الإنسان والحيوانات والنباتات.",tip:"لاحظ كيف تنمو النبتة وتحتاج إلى الماء والضوء.",question:"أي مما يلي كائن حي؟",options:["الحجر","النبتة","الكرسي"],answer:1},
- {id:2,subject:"science",name:"النباتات",title:"احتياجات النبات",text:"تحتاج معظم النباتات إلى الماء والضوء والهواء ومواد غذائية من التربة لتنمو.",tip:"اسقِ النبات باعتدال ووفّر له الضوء المناسب.",question:"ما الذي يساعد النبات على النمو؟",options:["الماء والضوء","البلاستيك","الزجاج وحده"],answer:0},
- {id:3,subject:"science",name:"الحواس",title:"حواس الإنسان",text:"تساعدنا الحواس على معرفة ما حولنا. الحواس الخمس هي البصر والسمع والشم والتذوق واللمس.",tip:"العين للبصر والأذن للسمع والأنف للشم.",question:"بأي حاسة نسمع الأصوات؟",options:["الشم","السمع","التذوق"],answer:1},
- {id:4,subject:"science",name:"الماء",title:"أهمية الماء",text:"الماء ضروري لحياة الإنسان والحيوان والنبات. علينا المحافظة عليه وعدم الإسراف في استخدامه.",tip:"أغلق صنبور الماء بعد الانتهاء.",question:"لماذا نحافظ على الماء؟",options:["لأنه غير مهم","لأنه ضروري للحياة","لإهداره"],answer:1},
- {id:5,subject:"math",name:"الجمع",title:"الجمع البسيط",text:"الجمع يعني ضم مجموعتين أو أكثر لمعرفة العدد الكلي.",tip:"استخدم أصابعك أو ارسم الأشياء لتسهيل الجمع.",question:"ما ناتج 3 + 4؟",options:["6","7","8"],answer:1},
- {id:6,subject:"math",name:"الطرح",title:"الطرح البسيط",text:"الطرح يعني إزالة عدد من مجموعة لمعرفة ما يتبقى.",tip:"ابدأ بالعدد الأكبر ثم ارجع إلى الخلف.",question:"ما ناتج 8 - 3؟",options:["4","5","6"],answer:1},
- {id:7,subject:"arabic",name:"الجملة",title:"الجملة المفيدة",text:"الجملة المفيدة كلمات مرتبة تعطي معنى تامًا. مثال: يقرأ الطالب الكتاب.",tip:"اقرأ الجملة وتأكد أن معناها واضح.",question:"أي عبارة جملة مفيدة؟",options:["في المدرسة","الطالب يقرأ","على الطاولة"],answer:1},
- {id:8,subject:"arabic",name:"الأسماء",title:"التعرف على الاسم",text:"الاسم كلمة تدل على إنسان أو حيوان أو شيء أو مكان، مثل طالب وقطة وكتاب ومدرسة.",tip:"ابحث عن أسماء الأشخاص والأشياء من حولك.",question:"أي كلمة اسم؟",options:["يكتب","كتاب","اكتب"],answer:1}
+const KEY="qais_academy_v3";
+const lessons=[
+{id:1,subject:"science",title:"الكائنات الحية",text:"الكائنات الحية تنمو وتحتاج إلى ظروف مناسبة للحياة. من أمثلتها الإنسان والحيوانات والنباتات.",tip:"لاحظ كيف تنمو النبتة وتحتاج إلى الماء والضوء.",q:"أي مما يلي كائن حي؟",opts:["الحجر","النبتة","الكرسي"],a:1},
+{id:2,subject:"science",title:"احتياجات النبات",text:"تحتاج معظم النباتات إلى الماء والضوء والهواء ومواد غذائية من التربة لتنمو.",tip:"اسق النبات باعتدال ووفّر له الضوء.",q:"ما الذي يساعد النبات على النمو؟",opts:["الماء والضوء","البلاستيك","الزجاج وحده"],a:0},
+{id:3,subject:"science",title:"حواس الإنسان",text:"الحواس الخمس هي البصر والسمع والشم والتذوق واللمس.",tip:"العين للبصر والأذن للسمع والأنف للشم.",q:"بأي حاسة نسمع الأصوات؟",opts:["الشم","السمع","التذوق"],a:1},
+{id:4,subject:"science",title:"أهمية الماء",text:"الماء ضروري لحياة الإنسان والحيوان والنبات، وعلينا المحافظة عليه.",tip:"أغلق الصنبور بعد الاستخدام.",q:"لماذا نحافظ على الماء؟",opts:["لأنه غير مهم","لأنه ضروري للحياة","لإهداره"],a:1},
+{id:5,subject:"math",title:"الجمع البسيط",text:"الجمع يعني ضم مجموعتين أو أكثر لمعرفة العدد الكلي.",tip:"استخدم أصابعك أو ارسم الأشياء لتسهيل الجمع.",q:"ما ناتج 3 + 4؟",opts:["6","7","8"],a:1},
+{id:6,subject:"math",title:"الطرح البسيط",text:"الطرح يعني إزالة عدد من مجموعة لمعرفة ما يتبقى.",tip:"ابدأ بالعدد الأكبر ثم ارجع إلى الخلف.",q:"ما ناتج 8 - 3؟",opts:["4","5","6"],a:1},
+{id:7,subject:"arabic",title:"الجملة المفيدة",text:"الجملة المفيدة كلمات مرتبة تعطي معنى تامًا، مثل: يقرأ الطالب الكتاب.",tip:"تأكد أن الجملة تعطي معنى واضحًا.",q:"أي عبارة جملة مفيدة؟",opts:["في المدرسة","الطالب يقرأ","على الطاولة"],a:1},
+{id:8,subject:"arabic",title:"التعرف على الاسم",text:"الاسم كلمة تدل على إنسان أو حيوان أو شيء أو مكان، مثل طالب وقطة وكتاب ومدرسة.",tip:"ابحث عن أسماء الأشياء من حولك.",q:"أي كلمة اسم؟",opts:["يكتب","كتاب","اكتب"],a:1}
 ];
+const bank=[
+...lessons.map(l=>({subject:l.subject,q:l.q,opts:l.opts,a:l.a,tip:l.tip})),
+{subject:"science",q:"أي عضو نستخدم للرؤية؟",opts:["العين","الأذن","القدم"],a:0,tip:"العين تساعدنا على البصر."},
+{subject:"math",q:"ما ناتج 2 + 5؟",opts:["6","7","8"],a:1,tip:"اثنان زائد خمسة يساوي سبعة."},
+{subject:"math",q:"ما ناتج 9 - 4؟",opts:["4","5","6"],a:1,tip:"تسعة ناقص أربعة يساوي خمسة."},
+{subject:"arabic",q:"ما جمع كلمة كتاب؟",opts:["كاتب","كتب","مكتوب"],a:1,tip:"من جموع كلمة كتاب: كتب."},
+{subject:"arabic",q:"ما الكلمة التي تدل على فعل؟",opts:["مدرسة","يلعب","قلم"],a:1,tip:"يلعب فعل يدل على حدث."}
+];
+function emptyState(){return {name:"",points:0,completed:[],attempts:0,best:0,history:[],awarded:[]};}
+function loadState(){
+ try{
+ const d=JSON.parse(localStorage.getItem(KEY)||"null");
+ if(!d)return emptyState();
+ const s={...emptyState(),...d};
+ if(!Array.isArray(s.completed)||!Array.isArray(s.history)||!Array.isArray(s.awarded))return emptyState();
+ return s;
+ }catch(e){return emptyState();}
+}
+let state=loadState(),quizQuestions=[],quizIndex=0,quizScore=0,quizLocked=false,gameQuestions=[],gameIndex=0,gameScore=0,voices=[];
+const $=id=>document.getElementById(id);
+$("year").textContent=new Date().getFullYear();
 
-const bank = [
- ...lessons.map(l=>({subject:l.subject,q:l.question,options:l.options,answer:l.answer,explain:l.tip})),
- {subject:"science",q:"أي عضو نستخدمه للرؤية؟",options:["العين","الأذن","القدم"],answer:0,explain:"العين تساعدنا على البصر."},
- {subject:"science",q:"أي سلوك يحافظ على الماء؟",options:["ترك الصنبور مفتوحًا","إغلاق الصنبور بعد الاستخدام","اللعب بالماء بلا حاجة"],answer:1,explain:"إغلاق الصنبور يمنع هدر الماء."},
- {subject:"math",q:"ما ناتج 2 + 5؟",options:["6","7","8"],answer:1,explain:"اثنان زائد خمسة يساوي سبعة."},
- {subject:"math",q:"ما ناتج 9 - 4؟",options:["4","5","6"],answer:1,explain:"تسعة ناقص أربعة يساوي خمسة."},
+function saveState(){
+ try{localStorage.setItem(KEY,JSON.stringify(state));}
+ catch(e){alert("تعذر حفظ البيانات على هذا الجهاز.");}
+ renderStats();
+}
+function saveName(){state.name=$("studentName").value.trim().slice(0,40);saveState();renderHome();}
+function showPage(id){
+ stopSpeech();
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+ $(id).classList.remove("hidden");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ if(id==="home")renderHome();
+ if(id==="lessons")renderLessons();
+ if(id==="quiz")startQuiz();
+ if(id==="games")renderBadges();
+ if(id==="teacher")renderTeacher();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>showPage(b.dataset.page));
+
+function renderHome(){
+ $("studentName").value=state.name;
+ $("welcome").textContent=state.name?"مرحبًا يا "+state.name+"! سعيدون بتعلمك معنا.":"اكتب اسمك لتبدأ رحلتك التعليمية.";
+ $("dailyMessage").textContent=state.completed.length===lessons.length?"رائع! أكملت جميع الدروس النموذجية. استمر في المراجعة!":"كل خطوة صغيرة تقربك من النجاح. هيا نتعلم!";
+ renderStats();
+}
+function renderStats(){
+ $("points").textContent=state.points;
+ $("completed").textContent=state.completed.length;
+ $("attempts").textContent=state.attempts;
+ $("badgesCount").textContent=state.awarded.length;
+ const pct=Math.round(state.completed.length/lessons.length*100);
+ $("progressBar").style.width=pct+"%";
+ $("progressText").textContent=`أنجزت ${state.completed.length} من ${lessons.length} دروس (${pct}%).`;
+}
+function renderLessons(){
+ const el=$("lessonList");el.replaceChildren();
+ lessons.forEach(l=>{
+ const d=document.createElement("div");d.className="lesson";
+ const h=document.createElement("h3");h.textContent=(state.completed.includes(l.id)?"✅ ":"📘 ")+l.title;
+ const p=document.createElement("p");p.textContent=subjectName(l.subject);
+ const b=document.createElement("button");b.textContent="افتح الدرس";b.onclick=()=>openLesson(l.id);
+ d.append(h,p,b);el.append(d);
+ });
+}
+function subjectName(s){return {science:"العلوم",math:"الرياضيات",arabic:"اللغة العربية"}[s]||s;}
+function openLesson(id){
+ const l=lessons.find(x=>x.id===id);if(!l)return;
+ const el=$("lessonView");el.classList.remove("hidden");el.replaceChildren();
+ const h=document.createElement("h2");h.textContent=l.title;
+ const p=document.createElement("p");p.textContent=l.text;
+ const tip=document.createElement("div");tip.className="success";tip.textContent="💡 تذكر: "+l.tip;
+ const listen=document.createElement("button");listen.textContent="🔊 استمع إلى قيس";listen.onclick=()=>speak(l.title+". "+l.text+". "+l.tip);
+ const done=document.createElement("button");done.textContent=state.completed.includes(id)?"تم إكمال الدرس ✓":"أنهيت الدرس +10 نقاط";done.onclick=()=>completeLesson(id);
+ const ask=document.createElement("button");ask.className="secondary";ask.textContent="اسأل قيس عن الدرس";ask.onclick=()=>{$("question").value="اشرح لي درس "+l.title+" بطريقة سهلة";showPage("qais");};
+ el.append(h,p,tip,listen,done,ask);el.scrollIntoView({behavior:"smooth"});
+}
+function completeLesson(id){
+ if(state.completed.includes(id)){alert("هذا الدرس مكتمل من قبل.");return;}
+ state.completed.push(id);state.points+=10;checkAwards();saveState();renderLessons();openLesson(id);alert("أحسنت! حصلت على 10 نقاط ⭐");
+}
+function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;}
+function startQuiz(){
+ quizIndex=0;quizScore=0;quizLocked=false;
+ const s=$("quizSubject").value;
+ quizQuestions=shuffle(bank.filter(q=>s==="all"||q.subject===s)).slice(0,5);
+ renderQuestion("quizArea");
+}
+function renderQuestion(area){
+ const el=$(area);el.replaceChildren();
+ if(quizIndex>=quizQuestions.length){
+ finishRound(quizScore,quizQuestions.length);
+ const p=document.createElement("div");p.className="success";p.textContent=`انتهى الاختبار! نتيجتك ${quizScore} من ${quizQuestions.length}.`;
+ const b=document.createElement("button");b.textContent="اختبار جديد";b.onclick=startQuiz;el.append(p,b);return;
+ }
+ const q=quizQuestions[quizIndex];
+ const h=document.createElement("h3");h.textContent=`السؤال ${quizIndex+1} من ${quizQuestions.length}`;
+ const p=document.createElement("p");p.textContent=q.q;
+ const listen=document.createElement("button");listen.className="secondary";listen.textContent="🔊 استمع للسؤال";listen.onclick=()=>speak(q.q);
+ el.append(h,p,listen);
+ q.opts.forEach((opt,i)=>{const b=document.createElement("button");b.className="option";b.textContent=opt;b.onclick=()=>answerQuiz(i,area);el.append(b);});
+}
+function answerQuiz(i,area){
+ if(quizLocked)return;quizLocked=true;
+ const q=quizQuestions[quizIndex],el=$(area),correct=i===q.a;
+ el.querySelectorAll(".option").forEach((b,j)=>{b.disabled=true;if(j===q.a)b.style.border="2px solid #15976b";});
+ if(correct)quizScore++;
+ const f=document.createElement("div");f.className=correct?"success":"warning";f.textContent=(correct?"أحسنت! إجابة صحيحة. ":"ليست الإجابة الصحيحة. ")+q.tip;
+ const n=document.createElement("button");n.textContent=quizIndex===quizQuestions.length-1?"عرض النتيجة":"السؤال التالي";n.onclick=()=>{quizIndex++;quizLocked=false;renderQuestion(area);};
+ el.append(f,n);
+}
+function startGame(){gameQuestions=shuffle(bank).slice(0,5);gameIndex=0;gameScore=0;renderGame();}
+function renderGame(){
+ const el=$("gameArea");el.replaceChildren();
+ if(gameIndex>=gameQuestions.length){
+ finishRound(gameScore,gameQuestions.length);
+ const p=document.createElement("p");p.className="success";p.textContent=`انتهى التحدي! نتيجتك ${gameScore} من ${gameQuestions.length}.`;
+ const b=document.createElement("button");b.textContent="تحدٍ جديد";b.onclick=startGame;el.append(p,b);return;
+ }
+ const q=gameQuestions[gameIndex],h=document.createElement("h3"),p=document.createElement("p");
+ h.textContent=`التحدي ${gameIndex+1} من ${gameQuestions.length}`;p.textContent=q.q;el.append(h,p);
+ q.opts.forEach((opt,i)=>{const b=document.createElement("button");b.className="option";b.textContent=opt;b.onclick=()=>{
+ el.querySelectorAll("button").forEach(x=>x.disabled=true);
+ const correct=i===q.a;if(correct)gameScore++;
+ const f=document.createElement("div");f.className=correct?"success":"warning";f.textContent=(correct?"أحسنت! ":"حاول مرة أخرى. ")+q.tip;
+ const n=document.createElement("button");n.textContent="التالي";n.onclick=()=>{gameIndex++;renderGame();};el.append(f,n);
+ };el.append(b);});
+}
+function finishRound(score,total){
+ if(!total)return;
+ state.attempts++;state.best=Math.max(state.best,Math.round(score/total*100));state.points+=score*5;
+ state.history.unshift({date:new Date().toLocaleString("ar"),score,total,percent:Math.round(score/total*100)});
+ state.history=state.history.slice(0,30);checkAwards();saveState();
+}
+function checkAwards(){
+ const a=[["first","بداية النجاح 🌟",state.completed.length>=1],["five","محب التعلم 📚",state.completed.length>=5],["all","بطل الدروس 🏆",state.completed.length>=lessons.length],["points","جامع النقاط ⭐",state.points>=50],["quiz","مستكشف الاختبارات 🧠",state.attempts>=3]];
+ a.forEach(x=>{if(x[2]&&!state.awarded.includes(x[0]))state.awarded.push(x[0]);});
+}
+function renderBadges(){
+ const el=$("badgesList");el.replaceChildren();
+ const names={first:"بداية النجاح 🌟",five:"محب التعلم 📚",all:"بطل الدروس 🏆",points:"جامع النقاط ⭐",quiz:"مستكشف الاختبارات 🧠"};
+ if(!state.awarded.length){el.textContent="أكمل الدروس والاختبارات لتربح شاراتك.";return;}
+ state.awarded.forEach(id=>{const s=document.createElement("span");s.className="badge";s.textContent=names[id]||id;el.append(s);});
+}
+function renderTeacher(){
+ $("teacherName").textContent=state.name||"طالب";
+ $("teacherPoints").textContent=state.points;
+ $("teacherProgress").textContent=Math.round(state.completed.length/lessons.length*100)+"%";
+ $("bestScore").textContent=state.best+"%";
+ const el=$("history");el.replaceChildren();
+ if(!state.history.length){el.textContent="لا توجد نتائج بعد.";return;}
+ state.history.forEach(r=>{const p=document.createElement("p");p.textContent=`${r.date}: ${r.score}/${r.total} (${r.percent}%)`;el.append(p);});
+}
+function speak(text){
+ if(!("speechSynthesis" in window)){alert("الصوت غير مدعوم في هذا المتصفح.");return;}
+ stopSpeech();
+ const u=new SpeechSynthesisUtterance(String(text).slice(0,4000));u.lang="ar-SA";u.rate=.9;
+ const chosen=$("voiceSelect").value;
+ const v=voices.find(x=>x.name===chosen);if(v)u.voice=v;
+ u.onstart=()=> $("avatar").classList.add("talking");
+ u.onend=()=> $("avatar").classList.remove("talking");
+ u.onerror=()=> $("avatar").classList.remove("talking");
+ speechSynthesis.speak(u);
+}
+function stopSpeech(){if("speechSynthesis" in window)speechSynthesis.cancel();$("avatar").classList.remove("talking");}
+function loadVoices(){
+ if(!("speechSynthesis" in window))return;
+ voices=speechSynthesis.getVoices();
+ const el=$("voiceSelect");const old=state.voice;el.replaceChildren();
+ voices.filter(v=>v.lang.toLowerCase().startsWith("ar")).forEach(v=>{const o=document.createElement("option");o.value=v.name;o.textContent=v.name+" ("+v.lang+")";elج 9 - 4؟",options:["4","5","6"],answer:1,explain:"تسعة ناقص أربعة يساوي خمسة."},
  {subject:"arabic",q:"ما جمع كلمة كتاب؟",options:["كاتب","كتب","مكتوب"],answer:1,explain:"من جموع كلمة كتاب: كتب."},
  {subject:"arabic",q:"ما الكلمة التي تدل على فعل؟",options:["مدرسة","يلعب","قلم"],answer:1,explain:"يلعب فعل يدل على حدث."}
 ];
