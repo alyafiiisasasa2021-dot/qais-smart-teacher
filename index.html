@@ -1,132 +1,183 @@
 
-<!DOCTYPE html>  <html lang="en">  
-<head>  
-<meta charset="UTF-8">  
-<meta name="viewport" content="width=device-width, initial-scale=1.0">  
-<title>Qais Smart Teacher</title>  
-<style>  
-*{box-sizing:border-box}  
-body{margin:0;font-family:Arial,sans-serif;background:#f0f8ff;color:#24324a;text-align:center}  
-header{background:#6558d3;color:white;padding:24px 12px;border-radius:0 0 28px 28px}  
-header h1{margin:0;font-size:30px}  
-header p{margin-bottom:0}  
-main{max-width:800px;margin:auto;padding:16px}  
-.card{background:white;border-radius:22px;padding:20px;margin:16px 0;box-shadow:0 4px 14px #00000010}  
-button{border:0;border-radius:14px;padding:13px 18px;margin:6px;background:#6558d3;color:white;font-size:17px;cursor:pointer}  
-button:active{transform:scale(.97)}  
-.word{font-size:38px;font-weight:bold;color:#5145b5;margin:12px}  
-.picture{font-size:75px;margin:8px}  
-.option{background:#e8f4ff;color:#24324a;min-width:110px}  
-#feedback{font-size:19px;font-weight:bold}  
-footer{padding:20px;color:#64748b}  
-</style>  
-</head>  
-<body>  
-<header>  
-<h1>🌟 Qais Smart Teacher 🌟</h1>  
-<p>Learn English, one happy step at a time!</p>  
-<p>Welcome, Qais! 👋</p>  
-</header>  
-<main>  
-<section class="card">  
-<h2>📚 My English Lessons</h2>  
-<p>Choose a word, see its picture, and listen!</p>  
-<div id="picture" class="picture">🍎</div>  
-<div id="word" class="word">Apple</div>  
-<p id="translation">تفاحة</p>  
-<button onclick="speakWord()">🔊 Listen</button>  
-<button onclick="previousWord()">⬅ Previous</button>  
-<button onclick="nextWord()">Next ➡</button>  
-</section>  <section class="card">  
-<h2>🎯 Quick Quiz</h2>  
-<p id="question">Which word means تفاحة?</p>  
-<div id="options"></div>  
-<p id="feedback" aria-live="polite"></p>  
-<p>Score: <span id="score">0</span></p>  
-<button onclick="newQuestion()">Next Question ➡</button>  
-</section>  <section class="card">  
-<h2>🏆 Qais's Progress</h2>  
-<p>Quiz points: <strong id="total">0</strong></p>  
-<p>Questions answered: <strong id="answered">0</strong></p>  
-<p>Correct answers: <strong id="correct">0</strong></p>  
-<p>Keep learning, Qais! You are doing great! ⭐</p>  
-<button onclick="resetProgress()">Reset Progress</button>  
-</section>  
-</main>  
-<footer>Made with ❤️ for Qais</footer>  <script>  
-const words=[  
-{en:"Apple",ar:"تفاحة",pic:"🍎"},  
-{en:"Book",ar:"كتاب",pic:"📘"},  
-{en:"Cat",ar:"قطة",pic:"🐱"},  
-{en:"Dog",ar:"كلب",pic:"🐶"},  
-{en:"Sun",ar:"شمس",pic:"☀️"},  
-{en:"Ball",ar:"كرة",pic:"⚽"},  
-{en:"Fish",ar:"سمكة",pic:"🐟"},  
-{en:"School",ar:"مدرسة",pic:"🏫"},  
-{en:"Water",ar:"ماء",pic:"💧"},  
-{en:"Bird",ar:"طائر",pic:"🐦"}  
-];  
-let index=0,score=0,answered=0,correct=0,current=null,locked=false;  
-try{  
-score=Number(localStorage.getItem("qaisScore")||0);  
-answered=Number(localStorage.getItem("qaisAnswered")||0);  
-correct=Number(localStorage.getItem("qaisCorrect")||0);  
-}catch(e){}  
-function showWord(){  
-const w=words[index];  
-document.getElementById("word").textContent=w.en;  
-document.getElementById("translation").textContent=w.ar;  
-document.getElementById("picture").textContent=w.pic;  
-}  
-function speakWord(){  
-if(!("speechSynthesis" in window)){alert("Audio speech is not supported in this browser.");return;}  
-speechSynthesis.cancel();  
-const u=new SpeechSynthesisUtterance(words[index].en);  
-u.lang="en-US";u.rate=0.8;speechSynthesis.speak(u);  
-}  
-function nextWord(){index=(index+1)%words.length;showWord();}  
-function previousWord(){index=(index-1+words.length)%words.length;showWord();}  
-function saveProgress(){  
-try{  
-localStorage.setItem("qaisScore",score);  
-localStorage.setItem("qaisAnswered",answered);  
-localStorage.setItem("qaisCorrect",correct);  
-}catch(e){}  
-document.getElementById("score").textContent=score;  
-document.getElementById("total").textContent=score;  
-document.getElementById("answered").textContent=answered;  
-document.getElementById("correct").textContent=correct;  
-}  
-function newQuestion(){  
-locked=false;  
-document.getElementById("feedback").textContent="";  
-current=words[Math.floor(Math.random()*words.length)];  
-document.getElementById("question").textContent="Which word means "+current.ar+"?";  
-const choices=[current];  
-while(choices.length<3){  
-const w=words[Math.floor(Math.random()*words.length)];  
-if(!choices.includes(w))choices.push(w);  
-}  
-choices.sort(()=>Math.random()-0.5);  
-const box=document.getElementById("options");box.innerHTML="";  
-choices.forEach(w=>{  
-const b=document.createElement("button");  
-b.className="option";b.textContent=w.en;  
-b.onclick=()=>checkAnswer(w,b);  
-box.appendChild(b);  
-});  
-}  
-function checkAnswer(w,b){  
-if(locked)return;locked=true;answered++;  
-if(w===current){correct++;score++;document.getElementById("feedback").textContent="🎉 Correct! Well done!";}  
-else{document.getElementById("feedback").textContent="😊 Good try! The answer is "+current.en+"."; }  
-saveProgress();  
-}  
-function resetProgress(){  
-if(confirm("Reset all progress?")){  
-score=0;answered=0;correct=0;saveProgress();newQuestion();  
-}  
-}  
-showWord();saveProgress();newQuestion();  
-</script>  </body>  
-</html>  هذا عادنا ماشي عملته
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أكاديمية قيس الذكي - العلوم</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Tahoma,sans-serif;background:#f0f8ff;color:#24324a;text-align:center}
+header{background:linear-gradient(135deg,#6558d3,#3988db);color:white;padding:25px 12px;border-radius:0 0 28px 28px}
+header h1{margin:0;font-size:27px}
+header p{margin-bottom:0;line-height:1.8}
+main{max-width:800px;margin:auto;padding:14px}
+.card{background:white;border-radius:22px;padding:20px;margin:16px 0;box-shadow:0 4px 14px #00000010}
+h2{color:#5145b5;font-size:22px}
+button{border:0;border-radius:14px;padding:12px 16px;margin:5px;background:#6558d3;color:white;font-size:16px;cursor:pointer}
+button:active{transform:scale(.97)}
+.option{background:#e8f4ff;color:#24324a;border:2px solid #d5e8fa;min-width:110px}
+.option:disabled{opacity:1}
+.picture{font-size:76px;margin:12px}
+.word{font-size:27px;font-weight:bold;color:#5145b5;margin:12px}
+#feedback{font-size:18px;font-weight:bold;line-height:1.8}
+.lesson-text{font-size:18px;line-height:2}
+.stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.stat{background:#f0edff;padding:12px;border-radius:14px;min-width:100px}
+footer{padding:20px;color:#64748b}
+</style>
+</head>
+<body>
+<header>
+<h1>🌟 أكاديمية قيس الذكي 🌟</h1>
+<p>نتعلم العلوم ونكتشف أسرار العالم مع قيس!</p>
+<p>أهلًا يا بطل العلوم! 👋🔬</p>
+</header>
+
+<main>
+<section class="card">
+<h2>📚 دروس العلوم</h2>
+<p>اختر درسًا، وشاهد الصورة، وتعرّف على المعلومة.</p>
+<button onclick="changeLesson(-1)">السابق ◀</button>
+<button onclick="changeLesson(1)">التالي ▶</button>
+<div id="picture" class="picture">🌱</div>
+<div id="word" class="word">النباتات</div>
+<p id="lessonText" class="lesson-text"></p>
+<button onclick="speakLesson()">🔊 استمع إلى قيس</button>
+</section>
+
+<section class="card">
+<h2>🎯 اختبر معلوماتك</h2>
+<p id="question" class="lesson-text"></p>
+<div id="options"></div>
+<p id="feedback" aria-live="polite"></p>
+<button onclick="newQuestion()">السؤال التالي ⬅</button>
+</section>
+
+<section class="card">
+<h2>🏆 إنجازاتي مع قيس</h2>
+<div class="stats">
+<div class="stat">⭐ النقاط<br><strong id="score">0</strong></div>
+<div class="stat">📝 الإجابات<br><strong id="answered">0</strong></div>
+<div class="stat">✅ الصحيحة<br><strong id="correct">0</strong></div>
+</div>
+<p id="encouragement">واصل التعلم، أنت بطل! 🌟</p>
+<button onclick="resetProgress()">إعادة ضبط التقدم</button>
+</section>
+</main>
+
+<footer>صُنعت هذه الأكاديمية بمحبة من أجل قيس ❤️</footer>
+
+<script>
+const lessons=[
+{title:"النباتات",pic:"🌱",text:"تحتاج النباتات إلى الماء والهواء وضوء الشمس لكي تنمو. وللنبات أجزاء مثل الجذر والساق والأوراق."},
+{title:"الحيوانات",pic:"🐦",text:"الحيوانات كائنات حية. بعضها يعيش على اليابسة وبعضها يعيش في الماء، وتحتاج إلى الغذاء والماء والهواء."},
+{title:"الماء",pic:"💧",text:"الماء مهم لحياة الإنسان والحيوان والنبات. نحافظ على الماء ولا نترك الصنبور مفتوحًا دون حاجة."},
+{title:"الشمس",pic:"☀️",text:"الشمس مصدر للضوء والحرارة. يساعد ضوء الشمس النباتات على النمو."},
+{title:"جسم الإنسان",pic:"🧒",text:"يتكون جسم الإنسان من أجزاء مختلفة، مثل الرأس والجذع والذراعين والساقين. ونحافظ على صحتنا بالنظافة والغذاء الصحي."},
+{title:"الهواء",pic:"🌬️",text:"الهواء يحيط بنا ولا نراه عادة، لكننا نشعر به عندما تهب الرياح. تحتاج الكائنات الحية إلى الهواء."},
+{title:"الغذاء الصحي",pic:"🍎",text:"يساعد الغذاء المتنوع والصحي الجسم على النمو. ومن المهم تناول الفواكه والخضروات وغسل اليدين قبل الطعام."},
+{title:"حالات الماء",pic:"🧊",text:"يمكن أن يوجد الماء سائلًا، أو صلبًا مثل الثلج، أو غازًا يسمى بخار الماء."}
+];
+
+const questions=[
+{q:"ماذا يحتاج النبات لكي ينمو؟",a:["الماء وضوء الشمس","الحجارة فقط","الألعاب"],correct:0},
+{q:"أي هذه الكائنات يعيش في الماء؟",a:["الجمل","السمكة","القطة"],correct:1},
+{q:"ما مصدر الضوء والحرارة نهارًا؟",a:["الشمس","الكتاب","الحذاء"],correct:0},
+{q:"كيف نحافظ على الماء؟",a:["نهدره","نترك الصنبور مفتوحًا","نستخدمه دون إسراف"],correct:2},
+{q:"أي جزء نستخدمه للمشي؟",a:["الساقان","الأذنان","الشعر"],correct:0},
+{q:"أي مما يلي غذاء صحي؟",a:["الفاكهة","الحجارة","الورق"],correct:0},
+{q:"ما اسم الماء عندما يصبح صلبًا؟",a:["بخار","ثلج","هواء"],correct:1},
+{q:"هل نحتاج إلى الهواء للتنفس؟",a:["نعم","لا"],correct:0},
+{q:"أي هذه الأشياء كائن حي؟",a:["الصخرة","الشجرة","الكرسي"],correct:1},
+{q:"ماذا نفعل قبل تناول الطعام؟",a:["نغسل أيدينا","نلعب بالتراب","لا نفعل شيئًا"],correct:0}
+];
+
+let lessonIndex=0,score=0,answered=0,correct=0,current=null,locked=false;
+
+try{
+score=Number(localStorage.getItem("qaisScienceScore")||0);
+answered=Number(localStorage.getItem("qaisScienceAnswered")||0);
+correct=Number(localStorage.getItem("qaisScienceCorrect")||0);
+}catch(e){}
+
+function showLesson(){
+const lesson=lessons[lessonIndex];
+document.getElementById("picture").textContent=lesson.pic;
+document.getElementById("word").textContent=lesson.title;
+document.getElementById("lessonText").textContent=lesson.text;
+}
+function changeLesson(direction){
+lessonIndex=(lessonIndex+direction+lessons.length)%lessons.length;
+showLesson();
+}
+function speakLesson(){
+if(!("speechSynthesis" in window)){
+alert("عذرًا، خاصية الصوت غير متاحة في هذا المتصفح.");
+return;
+}
+speechSynthesis.cancel();
+const text=lessons[lessonIndex].title+". "+lessons[lessonIndex].text;
+const utterance=new SpeechSynthesisUtterance(text);
+utterance.lang="ar";
+utterance.rate=0.85;
+speechSynthesis.speak(utterance);
+}
+function saveProgress(){
+try{
+localStorage.setItem("qaisScienceScore",score);
+localStorage.setItem("qaisScienceAnswered",answered);
+localStorage.setItem("qaisScienceCorrect",correct);
+}catch(e){}
+document.getElementById("score").textContent=score;
+document.getElementById("answered").textContent=answered;
+document.getElementById("correct").textContent=correct;
+document.getElementById("encouragement").textContent=
+score>=8?"🏆 رائع! أنت عالم صغير متميز!":
+score>=4?"🌟 أحسنت! واصل اكتشاف العلوم!":
+"واصل التعلم يا بطل، قيس يشجعك! 💚";
+}
+function newQuestion(){
+locked=false;
+current=questions[Math.floor(Math.random()*questions.length)];
+document.getElementById("question").textContent=current.q;
+document.getElementById("feedback").textContent="";
+const box=document.getElementById("options");
+box.innerHTML="";
+current.a.forEach((answer,index)=>{
+const button=document.createElement("button");
+button.className="option";
+button.textContent=answer;
+button.onclick=()=>checkAnswer(index);
+box.appendChild(button);
+});
+}
+function checkAnswer(index){
+if(locked)return;
+locked=true;
+answered++;
+if(index===current.correct){
+correct++;
+score++;
+document.getElementById("feedback").textContent="🎉 إجابة صحيحة! أحسنت يا بطل!";
+}else{
+document.getElementById("feedback").textContent=
+"😊 محاولة جيدة! الإجابة الصحيحة هي: "+current.a[current.correct];
+}
+saveProgress();
+}
+function resetProgress(){
+if(confirm("هل تريد إعادة ضبط النقاط والتقدم؟")){
+score=0;
+answered=0;
+correct=0;
+saveProgress();
+newQuestion();
+}
+}
+showLesson();
+saveProgress();
+newQuestion();
+</script>
+</body>
+</html>
