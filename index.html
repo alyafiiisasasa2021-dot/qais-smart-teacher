@@ -3,998 +3,447 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#087f8c">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#155eef">
 <title>أكاديمية قيس للمعلم الذكي</title>
 <style>
-:root{--teal:#087f8c;--dark:#075466;--bg:#f1f8fb;--ink:#183449;--gold:#ffc94d;--green:#16885c}
+:root{--blue:#155eef;--navy:#102a56;--bg:#f3f6fc;--green:#15976b;--orange:#ffb020}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
-button,input,select{font:inherit}
-button{border:0;cursor:pointer;border-radius:12px;padding:11px 15px;background:var(--teal);color:white}
-button:disabled{opacity:.7;cursor:default}
-button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-header{padding:23px 15px;text-align:center;color:white;background:linear-gradient(135deg,#075466,#12a49a)}
-header h1{margin:0;font-size:clamp(25px,5vw,37px)}
+body{margin:0;background:var(--bg);color:#17243b;font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+header{background:linear-gradient(135deg,#155eef,#6138c8);color:white;padding:24px 16px;text-align:center}
+header h1{margin:0;font-size:27px}
 header p{margin:5px 0}
-.wrap{max-width:960px;width:calc(100% - 22px);margin:16px auto 35px}
-.card{background:white;padding:17px;border-radius:18px;margin-bottom:15px;box-shadow:0 4px 18px #18344910}
-h2{color:var(--teal);font-size:23px;margin:0 0 10px}
-h3{margin:8px 0}
-.small{font-size:13px;color:#637b88}
-.hero{display:flex;align-items:center;gap:14px}
-.teacher{font-size:55px;min-width:78px;height:78px;display:grid;place-items:center;background:#e4f7f4;border-radius:50%}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{background:#eaf7f8;border-radius:12px;padding:10px;text-align:center}
-.stat strong{display:block;font-size:23px;color:var(--teal)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
-.navbtn{background:#e7f4f6;color:#155366;text-align:center;min-height:60px}
-.navbtn.active{background:var(--teal);color:white}
-.unit{border:1px solid #dbe9ed;border-radius:14px;padding:13px;margin:10px 0}
-.unit h3{color:#155e72}
-.lessonBtn{display:block;width:100%;text-align:right;margin:6px 0;background:#eaf5f7;color:var(--ink)}
-.lessonBtn.done{border-right:5px solid var(--green)}
-.option{display:block;width:100%;margin:8px 0;text-align:right;background:#edf5f7;color:var(--ink);border:1px solid #d7e6eb}
-.option.correct{background:#d9f7e7;border-color:#249762}
-.option.wrong{background:#ffeded;border-color:#d65d5d}
-.feedback{min-height:28px;font-weight:bold}
-.progress{height:12px;border-radius:20px;background:#e5edf0;overflow:hidden}
-.progress div{height:100%;background:#20a77b;width:0;transition:width .3s}
-.gold{background:var(--gold);color:#493700}
-.light{background:#e7f4f6;color:#155366}
+nav{display:flex;gap:8px;padding:12px;overflow-x:auto;background:white;position:sticky;top:0;z-index:5;box-shadow:0 2px 10px #152b5010}
+button{font:inherit;cursor:pointer;border:0;border-radius:12px;padding:10px 15px;background:var(--blue);color:white}
+nav button{white-space:nowrap;background:#edf2ff;color:#1744a3}
+nav button.active{background:var(--blue);color:white}
+main{max-width:1050px;margin:auto;padding:16px}
+.panel,.card{background:white;border-radius:18px;padding:18px;margin-bottom:15px;box-shadow:0 5px 22px #243b6010}
+h2,h3{margin-top:0}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:13px}
+.stat{background:#f0f5ff;padding:15px;border-radius:14px;text-align:center}
+.stat strong{display:block;font-size:27px;color:var(--blue)}
+.muted{color:#64748b;font-size:14px}
+input,select{font:inherit;padding:11px;border:1px solid #ccd5e4;border-radius:10px;width:100%;margin:5px 0 12px;background:white}
+label{display:block;font-weight:bold}
+.lesson-card{border:1px solid #e4eaf4;border-radius:14px;padding:14px;margin:10px 0}
+.lesson-card p{margin:5px 0}
+.primary{background:var(--blue)}
+.secondary{background:#e9efff;color:#1744a3}
+.success{background:#e8f8f0;color:#08734c;padding:12px;border-radius:12px}
+.warning{background:#fff5df;color:#815500;padding:12px;border-radius:12px}
+.option{display:block;width:100%;text-align:right;margin:8px 0;background:#f0f4fc;color:#182c4c;border:1px solid #dfe6f1}
+.option:focus,.option:hover{background:#dce8ff}
+.option:disabled{cursor:default;opacity:1}
 .hidden{display:none!important}
-.lessonText{font-size:17px;line-height:2}
-footer{text-align:center;padding:18px;color:#637b88;font-size:13px}
-input[type=text],select{width:100%;padding:11px;border:1px solid #cbdde4;border-radius:10px;background:white}
-button+button{margin:4px}
-@media(max-width:520px){.hero{align-items:flex-start}.stats{gap:5px}.stat{padding:7px 3px}.stat strong{font-size:20px}}
+.progress{height:12px;background:#e3e9f3;border-radius:99px;overflow:hidden}
+.progress div{height:100%;background:linear-gradient(90deg,#155eef,#36c89b);width:0;transition:width .3s}
+footer{text-align:center;color:#64748b;padding:25px}
+.badge{display:inline-block;background:#fff3c4;color:#815500;padding:7px 12px;border-radius:99px;margin:4px}
+.big{font-size:42px}
+@media(max-width:500px){header h1{font-size:22px}main{padding:10px}.panel{padding:14px}}
 </style>
 </head>
 <body>
 <header>
-  <div style="font-size:38px">🎓 📚 ⭐</div>
+  <div class="big">🎓</div>
   <h1>أكاديمية قيس للمعلم الذكي</h1>
-  <p>نتعلّم العلوم بالمرح والذكاء!</p>
-  <div>🌱 الصف الثاني الأساسي</div>
+  <p>نتعلم بذكاء، نتقدم بثقة، وننجح معًا 🌟</p>
 </header>
 
-<main class="wrap">
-<section class="card hero">
-  <div class="teacher">👨‍🏫</div>
-  <div>
-    <h2>أهلًا بك يا بطل!</h2>
-    <p>أنا المعلم قيس، وسنكتشف معًا أسرار الإنسان والنبات والحيوان والطبيعة.</p>
-    <button onclick="go('units')">ابدأ التعلّم 🚀</button>
-  </div>
-</section>
-
-<section class="card">
-  <h2>🏆 ملف إنجازك</h2>
-  <div class="stats">
-    <div class="stat">النقاط<strong id="score">0</strong></div>
-    <div class="stat">الدروس المكتملة<strong id="completed">0</strong></div>
-    <div class="stat">الإجابات الصحيحة<strong id="correct">0</strong></div>
-  </div>
-  <p class="small" id="studentGreeting">كل درس جديد خطوة نحو النجاح!</p>
-  <div class="progress"><div id="progressBar"></div></div>
-  <p class="small" id="progressText">تقدّمك الدراسي 0%</p>
-</section>
-
-<nav class="card grid" aria-label="القائمة الرئيسية">
-  <button class="navbtn active" data-page="home" onclick="go('home')">🏠 الرئيسية</button>
-  <button class="navbtn" data-page="units" onclick="go('units')">📚 الوحدات</button>
-  <button class="navbtn" data-page="quiz" onclick="go('quiz')">🧠 الاختبارات</button>
-  <button class="navbtn" data-page="games" onclick="go('games')">🎮 الألعاب</button>
-  <button class="navbtn" data-page="achievements" onclick="go('achievements')">🏅 إنجازاتي</button>
-  <button class="navbtn" data-page="settings" onclick="go('settings')">⚙️ الإعدادات</button>
+<nav id="nav">
+  <button class="active" data-page="home">الرئيسية</button>
+  <button data-page="lessons">الدروس</button>
+  <button data-page="quiz">الاختبارات</button>
+  <button data-page="games">التحديات</button>
+  <button data-page="teacher">لوحة المعلم</button>
+  <button data-page="settings">الإعدادات</button>
 </nav>
 
-<section id="page-home" class="page">
-  <div class="card">
-    <h2>🌟 ماذا سنتعلم اليوم؟</h2>
-    <div class="grid">
-      <button class="navbtn" onclick="openLesson(0)">👁️ الحواس الخمس</button>
-      <button class="navbtn" onclick="openLesson(1)">🌱 أجزاء النبات</button>
-      <button class="navbtn" onclick="openLesson(2)">🐾 الحيوانات</button>
-      <button class="navbtn" onclick="openLesson(3)">💧 الماء</button>
-    </div>
-  </div>
-  <div class="card">
-    <h2>💡 نصيحة المعلم قيس</h2>
-    <p>العالم الصغير يسأل ويلاحظ ويجرب بأمان. اقرأ كل درس، ثم اختبر معلوماتك!</p>
-    <button onclick="speak('مرحبًا يا بطل. اقرأ دروس العلوم ثم أجب عن الأسئلة لتجمع النقاط. أنت تستطيع النجاح!')">🔊 استمع إلى قيس</button>
-  </div>
-</section>
-
-<section id="page-units" class="page hidden">
-  <div class="card">
-    <h2>📚 وحدات العلوم</h2>
-    <p class="small">دروس تمهيدية تحتاج إلى المطابقة مع كتاب العلوم اليمني الرسمي.</p>
-    <div id="unitList"></div>
-  </div>
-</section>
-
-<section id="page-lesson" class="page hidden">
-  <div class="card">
-    <p class="small" id="lessonUnit"></p>
-    <div style="font-size:65px;text-align:center" id="lessonEmoji">🌱</div>
-    <h2 id="lessonTitle"></h2>
-    <div class="lessonText" id="lessonText"></div>
-    <div class="unit"><strong>💡 تذكّر:</strong><p id="lessonTip"></p></div>
-    <button onclick="speak(currentLesson.title+'. '+currentLesson.text+'. تذكّر: '+currentLesson.tip)">🎙️ استمع إلى شرح قيس</button>
-    <button class="light" onclick="stopVoice()">⏹ إيقاف الصوت</button>
-    <button class="gold" onclick="completeLesson()">✅ أكملت الدرس</button>
-    <button class="light" onclick="go('units')">↩️ العودة للوحدات</button>
-  </div>
-</section>
-
-<section id="page-quiz" class="page hidden">
-  <div class="card">
-    <h2>🧠 اختبر معلوماتك</h2>
-    <p>اختر الإجابة الصحيحة، وستعرف النتيجة مباشرة.</p>
-    <div id="quizArea"></div>
-    <p id="quizFeedback" class="feedback" aria-live="polite"></p>
-    <button onclick="nextQuestion()">سؤال جديد 🔄</button>
-  </div>
-</section>
-
-<section id="page-games" class="page hidden">
-  <div class="card">
-    <h2>🎮 تحدّي العالم الصغير</h2>
-    <p>أكمل التحدي واجمع نقاطًا جديدة!</p>
-    <div id="gameQuestion" class="unit"></div>
-    <div id="gameAnswers"></div>
-    <p id="gameFeedback" class="feedback" aria-live="polite"></p>
-    <button onclick="newGame()">تحدٍّ جديد 🎲</button>
-  </div>
-</section>
-
-<section id="page-achievements" class="page hidden">
-  <div class="card">
-    <h2>🏅 إنجازاتي وشاراتي</h2>
-    <p>واصل التعلّم لتفتح شارات جديدة.</p>
-    <div class="grid" id="badges"></div>
-  </div>
-</section>
-
-<section id="page-settings" class="page hidden">
-  <div class="card">
-    <h2>⚙️ إعدادات الطالب</h2>
-    <label for="studentName">اسم الطالب (اختياري)</label>
-    <input id="studentName" type="text" maxlength="30" placeholder="اكتب اسمك هنا">
+<main>
+<section id="home" class="page">
+  <div class="panel">
+    <h2>أهلًا بك في أكاديمية قيس! 👋</h2>
+    <label for="studentName">اسم الطالب</label>
+    <input id="studentName" maxlength="40" placeholder="اكتب اسمك هنا">
     <button onclick="saveName()">حفظ الاسم</button>
-    <hr style="border:0;border-top:1px solid #e1eaee;margin:20px 0">
-    <label for="voiceSelect">اختر صوت المعلم قيس</label>
-    <select id="voiceSelect" onchange="saveVoiceChoice()">
-      <option value="">اختيار تلقائي للصوت العربي</option>
+    <p id="welcome"></p>
+  </div>
+
+  <div class="grid">
+    <div class="stat">⭐ النقاط<strong id="points">0</strong></div>
+    <div class="stat">📘 الدروس المكتملة<strong id="completed">0</strong></div>
+    <div class="stat">📝 الاختبارات<strong id="attempts">0</strong></div>
+    <div class="stat">🏆 الشارات<strong id="badgesCount">0</strong></div>
+  </div>
+
+  <div class="panel">
+    <h3>رحلتك التعليمية</h3>
+    <div class="progress"><div id="progressBar"></div></div>
+    <p id="progressText" class="muted"></p>
+    <button onclick="showPage('lessons')">تابع التعلم ←</button>
+  </div>
+
+  <div class="panel">
+    <h3>رسالة قيس لك 🤖</h3>
+    <p id="dailyMessage">كل خطوة صغيرة تقربك من النجاح. هيا نتعلم!</p>
+    <button onclick="speak(document.getElementById('dailyMessage').textContent)">🔊 استمع إلى قيس</button>
+    <button class="secondary" onclick="stopSpeech()">إيقاف الصوت</button>
+  </div>
+</section>
+
+<section id="lessons" class="page hidden">
+  <div class="panel">
+    <h2>📚 مكتبة الدروس</h2>
+    <p class="muted">دروس نموذجية قابلة للتعديل. راجع توافقها مع كتابك المدرسي قبل اعتمادها.</p>
+    <div id="lessonList"></div>
+  </div>
+  <div id="lessonView" class="panel hidden"></div>
+</section>
+
+<section id="quiz" class="page hidden">
+  <div class="panel">
+    <h2>📝 اختبر معلوماتك</h2>
+    <p>اختر الإجابة الصحيحة لتحصل على النقاط.</p>
+    <label for="quizSubject">المادة</label>
+    <select id="quizSubject" onchange="startQuiz()">
+      <option value="all">جميع المواد</option>
+      <option value="science">العلوم</option>
+      <option value="math">الرياضيات</option>
+      <option value="arabic">اللغة العربية</option>
     </select>
-    <p class="small">تختلف الأصوات المتاحة حسب الجهاز والمتصفح.</p>
-    <button onclick="speak('مرحبًا بك في أكاديمية قيس للمعلم الذكي. هذا اختبار للصوت العربي. نتعلم كل يوم شيئًا جديدًا.')">🔊 تجربة الصوت</button>
-    <button class="light" onclick="stopVoice()">⏹ إيقاف الصوت</button>
-    <p class="small">يحفظ الموقع التقدم والاسم على هذا الجهاز فقط، ولا يحتاج إلى حساب.</p>
-    <button style="background:#b83e42" onclick="resetProgress()">إعادة ضبط التقدم</button>
-  </div>
-</section>
-
-<section class="card">
-  <h2>📌 ملاحظة تعليمية</h2>
-  <p class="small">هذه دروس علوم تمهيدية للأطفال وليست نقلًا موثقًا من كتاب العلوم اليمني الرسمي. يجب مراجعة محتواها ومطابقته مع الكتاب المعتمد عند توفره. القراءة الصوتية تعتمد على الأصوات المتاحة في متصفح الجهاز.</p>
-</section>
-</main>
-
-<footer>أكاديمية قيس للمعلم الذكي © 2026</footer>
-
-<script>
-const lessons=[
- {unit:"الوحدة الأولى: الإنسان والحواس",title:"الحواس الخمس",emoji:"👁️",text:"لدينا خمس حواس تساعدنا على معرفة ما حولنا. نستخدم العينين للبصر، والأذنين للسمع، والأنف للشم، واللسان للتذوق، والجلد للمس.",tip:"لا تتذوق أبدًا شيئًا مجهولًا.",q:"بأي حاسة نسمع صوت العصفور؟",opts:["البصر","السمع","الشم"],ans:1},
- {unit:"الوحدة الثانية: النباتات",title:"أجزاء النبات",emoji:"🌱",text:"للنبات جذور وساق وأوراق، وقد تكون له أزهار وثمار. تمتص الجذور الماء من التربة، وتساعد الأوراق النبات على صنع غذائه.",tip:"يحتاج النبات إلى الماء والضوء والهواء لينمو.",q:"أي جزء يمتص الماء من التربة؟",opts:["الأزهار","الجذور","الثمار"],ans:1},
- {unit:"الوحدة الثالثة: الحيوانات",title:"الحيوانات وبيئاتها",emoji:"🐾",text:"تعيش الحيوانات في بيئات مختلفة. يعيش السمك في الماء، ويعيش الجمل على اليابسة، وتعيش طيور كثيرة في الأشجار أو تطير في الهواء.",tip:"تحتاج الحيوانات إلى الغذاء والماء والهواء ومكان مناسب للعيش.",q:"أين يعيش السمك عادة؟",opts:["في الماء","في الصحراء","في الأشجار فقط"],ans:0},
- {unit:"الوحدة الرابعة: الماء والطقس",title:"الماء وأهميته",emoji:"💧",text:"نستخدم الماء للشرب والطبخ والتنظيف وري النباتات. يحتاج الإنسان والحيوان والنبات إلى الماء، لذلك علينا المحافظة عليه.",tip:"أغلق الصنبور عندما لا تحتاج إلى الماء.",q:"كيف نحافظ على الماء؟",opts:["نترك الصنبور مفتوحًا","نهدر الماء","نغلق الصنبور بعد الاستخدام"],ans:2},
- {unit:"الوحدة الرابعة: الماء والطقس",title:"الطقس",emoji:"🌦️",text:"قد يكون الطقس مشمسًا أو غائمًا أو ممطرًا أو عاصفًا. نلاحظ الطقس من حولنا ونختار الملابس المناسبة له.",tip:"ابقَ في مكان آمن أثناء العواصف.",q:"ماذا نرى عادة عند هطول المطر؟",opts:["ماء ينزل من الغيوم","نار من السماء","رمال فقط"],ans:0},
- {unit:"الوحدة الخامسة: الغذاء والصحة",title:"الغذاء الصحي",emoji:"🍎",text:"يساعدنا الغذاء المتنوع على النمو والنشاط. ومن الأطعمة المفيدة الفواكه والخضروات والحبوب وغيرها من الأطعمة المناسبة لأجسامنا.",tip:"اغسل يديك والفواكه قبل تناول الطعام.",q:"أي عادة تساعد على النظافة قبل الأكل؟",opts:["ترك اليدين متسختين","غسل اليدين","لمس الطعام بأيد متسخة"],ans:1},
- {unit:"الوحدة الخامسة: الغذاء والصحة",title:"النظافة الشخصية",emoji:"🧼",text:"نحافظ على صحتنا بغسل اليدين بالماء والصابون وتنظيف الأسنان والمحافظة على نظافة الجسم والمكان.",tip:"اغسل يديك قبل الأكل وبعد استخدام دورة المياه.",q:"بماذا نغسل أيدينا؟",opts:["الماء والصابون","التراب","الزيت فقط"],ans:0},
- {unit:"الوحدة السادسة: السلامة",title:"السلامة في حياتنا",emoji:"⚠️",text:"نحافظ على سلامتنا بالابتعاد عن النار والأدوات الحادة والكهرباء. لا نلمس الأشياء الخطرة ونطلب مساعدة شخص بالغ.",tip:"لا تلمس الأسلاك أو المقابس الكهربائية.",q:"ماذا تفعل إذا وجدت سلكًا مكشوفًا؟",opts:["ألمسه","أبتعد وأخبر شخصًا بالغًا","أصب عليه الماء"],ans:1}
-];
-
-const extra=[
- {q:"أي عضو نستخدم للإبصار؟",opts:["العين","الأذن","الأنف"],ans:0},
- {q:"ما الذي تحتاج إليه النباتات للنمو؟",opts:["الماء والضوء","الحجارة فقط","الألعاب"],ans:0},
- {q:"أي حيوان يعيش في الماء؟",opts:["السمكة","الجمل","الدجاجة"],ans:0},
- {q:"أي سلوك يحافظ على البيئة؟",opts:["رمي القمامة في الطريق","وضع القمامة في مكانها","تلويث الماء"],ans:1},
- {q:"أي جزء يحمل أوراق النبات عادة؟",opts:["الساق","التربة","الحجر"],ans:0},
- {q:"كيف نحافظ على سلامتنا قرب الكهرباء؟",opts:["نلمس الأسلاك","نبتعد عن الأسلاك المكشوفة","نصب الماء عليها"],ans:1}
-];
-
-const gamePool=[
- {q:"ماذا يحتاج النبات؟",opts:["الماء والضوء","الألعاب","الحلوى"],ans:0},
- {q:"ماذا نستخدم للشم؟",opts:["العين","الأنف","القدم"],ans:1},
- {q:"أيها يعيش في الماء؟",opts:["السمك","الجمل","القطة"],ans:0},
- {q:"متى نغسل اليدين؟",opts:["قبل الطعام","لا نغسلهما أبدًا","لا نحتاج إلى الصابون"],ans:0}
-];
-
-function read(key,fallback){
- try{const x=localStorage.getItem(key);return x===null?fallback:JSON.parse(x)}
- catch(e){return fallback}
-}
-
-let state=read("qaisAcademyState",{score:0,correct:0,completed:[],answered:[],name:"",voice:""});
-if(!state||typeof state!=="object")state={score:0,correct:0,completed:[],answered:[],name:"",voice:""};
-state.score=Number(state.score)||0;
-state.correct=Number(state.correct)||0;
-state.completed=Array.isArray(state.completed)?state.completed:[];
-state.answered=Array.isArray(state.answered)?state.answered:[];
-state.name=typeof state.name==="string"?state.name:"";
-state.voice=typeof state.voice==="string"?state.voice:"";
-
-let currentLesson=lessons[0];
-let quizIndex=0;
-let quizLocked=false;
-let gameLocked=false;
-let qaisSpeech=null;
-let lastQuizId=null;
-
-function persist(){
- try{localStorage.setItem("qaisAcademyState",JSON.stringify(state))}
- catch(e){}
-}
-
-function go(page){
- stopVoice();
- document.querySelectorAll(".page").forEach(el=>el.classList.add("hidden"));
- const target=document.getElementById("page-"+page);
- if(target)target.classList.remove("hidden");
- document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- if(page==="units")renderUnits();
- if(page==="achievements")renderBadges();
- if(page==="quiz")showQuestion();
- if(page==="games")newGame();
- window.scrollTo({top:0,behavior:"smooth"});
-}
-
-function renderUnits(){
- const groups={};
- lessons.forEach((l,i)=>{
-  if(!groups[l.unit])groups[l.unit]=[];
-  groups[l.unit].push({l,i});
- });
- document.getElementById("unitList").innerHTML=Object.entries(groups).map(([name,items])=>
-  `<div class="unit"><h3>${name}</h3><p class="small">${items.length} دروس تعليمية</p>`+
-  items.map(({l,i})=>`<button class="lessonBtn ${state.completed.includes(i)?"done":""}" onclick="openLesson(${i})">${state.completed.includes(i)?"✅":"📘"} ${l.title}</button>`).join("")+
-  `</div>`
- ).join("");
-}
-
-function openLesson(i){
- if(!lessons[i])return;
- stopVoice();
- currentLesson=lessons[i];
- document.getElementById("lessonUnit").textContent=currentLesson.unit;
- document.getElementById("lessonTitle").textContent=currentLesson.title;
- document.getElementById("lessonEmoji").textContent=currentLesson.emoji;
- document.getElementById("lessonText").textContent=currentLesson.text;
- document.getElementById("lessonTip").textContent=currentLesson.tip;
- go("lesson");
-}
-
-function completeLesson(){
- const i=lessons.indexOf(currentLesson);
- if(i<0)return;
- if(!state.completed.includes(i)){
-  state.completed.push(i);
-  state.score+=2;
-  persist();
-  updateUI();
-  renderUnits();
-  alert("أحسنت! أكملت الدرس وربحت نقطتين ⭐");
- }else{
-  alert("هذا الدرس مكتمل بالفعل. تابع التعلّم!");
- }
-}
-
-function updateUI(){
- document.getElementById("score").textContent=state.score;
- document.getElementById("correct").textContent=state.correct;
- document.getElementById("completed").textContent=state.completed.length;
- document.getElementById("progressBar").style.width=(state.completed.length/lessons.length*100)+"%";
- document.getElementById("progressText").textContent="أكملت "+state.completed.length+" من "+lessons.length+" دروس ("+Math.round(state.completed.length/lessons.length*100)+"%).";
- document.getElementById("studentGreeting").textContent=state.name?"أهلًا يا "+state.name+"، واصل التقدم!":"كل درس جديد خطوة نحو النجاح!";
- document.getElementById("studentName").value=state.name||"";
-}
-
-function populateVoices(){
- if(!("speechSynthesis" in window))return;
- const select=document.getElementById("voiceSelect");
- const oldValue=state.voice;
- const voices=speechSynthesis.getVoices();
- const arabicVoices=voices.filter(v=>v.lang&&v.lang.toLowerCase().startsWith("ar"));
- select.innerHTML='<option value="">اختيار تلقائي للصوت العربي</option>';
- arabicVoices.forEach((v)=>{
-  const option=document.createElement("option");
-  option.value=v.name;
-  option.textContent=v.name+" ("+v.lang+")";
-  select.appendChild(option);
- });
- if(oldValue&&arabicVoices.some(v=>v.name===oldValue))select.value=oldValue;
-}
-
-function saveVoiceChoice(){
- state.voice=document.getElementById("voiceSelect").value;
- persist();
-}
-
-function speak(text){
- if(!("speechSynthesis" in window)){
-  alert("المتصفح لا يدعم القراءة الصوتية.");
-  return;
- }
- stopVoice();
- qaisSpeech=new SpeechSynthesisUtterance(String(text||""));
- qaisSpeech.lang="ar";
- qaisSpeech.rate=0.82;
- qaisSpeech.pitch=1;
- qaisSpeech.volume=1;
- const voices=speechSynthesis.getVoices();
- let voice=state.voice?voices.find(v=>v.name===state.voice):null;
- if(!voice)voice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("ar"));
- if(voice)qaisSpeech.voice=voice;
- qaisSpeech.onerror=()=>{};
- speechSynthesis.speak(qaisSpeech);
-}
-
-function stopVoice(){
- if("speechSynthesis" in window)speechSynthesis.cancel();
- qaisSpeech=null;
-}
-
-function quizPool(){
- return lessons.map((l,i)=>({q:l.q,opts:l.opts,ans:l.ans,id:"l"+i}))
-  .concat(extra.map((q,i)=>({...q,id:"e"+i})));
-}
-
-function showQuestion(){
- const pool=quizPool();
- if(pool.every(q=>state.answered.includes(q.id))){
-  document.getElementById("quizArea").innerHTML="<h3>🎉 أحسنت! أجبت عن جميع الأسئلة المتاحة.</h3><p>يمكنك مراجعة الدروس أو إعادة ضبط التقدم لبدء الاختبارات من جديد.</p>";
-  document.getElementById("quizFeedback").textContent="";
-  quizLocked=true;
-  return;
- }
- quizLocked=false;
- let q=null;
- for(let tries=0;tries<pool.length;tries++){
-  const candidate=pool[quizIndex%pool.length];
-  quizIndex++;
-  if(!state.answered.includes(candidate.id)){q=candidate;break}
- }
- if(!q)return;
- lastQuizId=q.id;
- document.getElementById("quizFeedback").textContent="";
- const area=document.getElementById("quizArea");
- area.replaceChildren();
- const title=document.createElement("h3");
- title.textContent=q.q;
- area.appendChild(title);
- q.opts.forEach((answer,i)=>{
-  const b=document.createElement("button");
-  b.className="option";
-  b.textContent=answer;
-  b.onclick=()=>answerQuestion(q,i,b,area);
-  area.appendChild(b);
- });
-}
-
-function answerQuestion(q,i,button,area){
- if(quizLocked)return;
- quizLocked=true;
- area.querySelectorAll("button").forEach((b,j)=>{
-  b.disabled=true;
-  if(j===q.ans)b.classList.add("correct");
- });
- if(i===q.ans){
-  state.score++;
-  state.correct++;
-  document.getElementById("quizFeedback").textContent="إجابة صحيحة! أحسنت يا بطل 🎉";
- }else{
-  button.classList.add("wrong");
-  document.getElementById("quizFeedback").textContent="الإجابة الصحيحة باللون الأخضر. تعلّم منها وحاول مجددًا.";
- }
- if(!state.answered.includes(q.id))state.answered.push(q.id);
- persist();
- updateUI();
- renderBadges();
-}
-
-function nextQuestion(){showQuestion()}
-
-function newGame(){
- gameLocked=false;
- const q=gamePool[Math.floor(Math.random()*gamePool.length)];
- document.getElementById("gameQuestion").textContent=q.q;
- document.getElementById("gameFeedback").textContent="";
- const area=document.getElementById("gameAnswers");
- area.replaceChildren();
- q.opts.forEach((answer,i)=>{
-  const b=document.createElement("button");
-  b.className="option";
-  b.textContent=answer;
-  b.onclick=()=>{
-   if(gameLocked)return;
-   gameLocked=true;
-   area.querySelectorAll("button").forEach((x,j)=>{
-    x.disabled=true;
-    if(j===q.ans)x.classList.add("correct");
-   });
-   if(i===q.ans){
-    state.score+=2;
-    state.correct++;
-    document.getElementById("gameFeedback").textContent="رائع! فزت بنقطتين ⭐";
-   }else{
-    b.classList.add("wrong");
-    document.getElementById("gameFeedback").textContent="حاول في التحدي القادم. الإجابة الصحيحة باللون الأخضر.";
-   }
-   persist();
-   updateUI();
-   renderBadges();
-  };
-  area.appendChild(b);
- });
-}
-
-function renderBadges(){
- const badges=[
-  ["🌱","المستكشف","أكمل أول درس",state.completed.length>=1],
-  ["📚","محب المعرفة","أكمل 4 دروس",state.completed.length>=4],
-  ["🎓","بطل العلوم","أكمل كل الدروس",state.completed.length>=lessons.length],
-  ["⭐","جامع النقاط","اجمع 10 نقاط",state.score>=10],
-  ["🧠","عقل لامع","أجب إجابة صحيحة",state.correct>=1]
- ];
- document.geلمفيدة الفواكه والخضروات والحبوب وغيرها من الأطعمة المناسبة لأجسامنا.",tip:"اغسل يديك والفواكه قبل تناول الطعام.",q:"أي عادة تساعد على النظافة قبل الأكل؟",opts:["ترك اليدين متسختين","غسل اليدين","لمس الطعام بأيد متسخة"],ans:1},
- {unit:"الوحدة الخامسة: الغذاء والصحة",title:"النظافة الشخصية",emoji:"🧼",text:"نحافظ على صحتنا بغسل اليدين بالماء والصابون وتنظيف الأسنان والمحافظة على نظافة الجسم والمكان.",tip:"اغسل يديك قبل الأكل وبعد استخدام دورة المياه.",q:"بماذا نغسل أيدينا؟",opts:["الماء والصابون","التراب","الزيت فقط"],ans:0},
- {unit:"الوحدة السادسة: السلامة",title:"السلامة في حياتنا",emoji:"⚠️",text:"نحافظ على سلامتنا بالابتعاد عن النار والأدوات الحادة والكهرباء. لا نلمس الأشياء الخطرة ونطلب مساعدة شخص بالغ.",tip:"لا تلمس الأسلاك أو المقابس الكهربائية.",q:"ماذا تفعل إذا وجدت سلكًا مكشوفًا؟",opts:["ألمسه","أبتعد وأخبر شخصًا بالغًا","أصب عليه الماء"],ans:1}
-];
-const extra=[
- {q:"أي عضو نستخدم للإبصار؟",opts:["العين","الأذن","الأنف"],ans:0},
- {q:"ما الذي تحتاج إليه النباتات للنمو؟",opts:["الماء والضوء","الحجارة فقط","الألعاب"],ans:0},
- {q:"أي حيوان يعيش في الماء؟",opts:["السمكة","الجمل","الدجاجة"],ans:0},
- {q:"أي سلوك يحافظ على البيئة؟",opts:["رمي القمامة في الطريق","وضع القمامة في مكانها","تلويث الماء"],ans:1},
- {q:"أي جزء يحمل أوراق النبات عادة؟",opts:["الساق","التربة","الحجر"],ans:0},
- {q:"كيف نحافظ على سلامتنا قرب الكهرباء؟",opts:["نلمس الأسلاك","نبتعد عن الأسلاك المكشوفة","نصب الماء عليها"],ans:1}
-];
-const gamePool=[
- {q:"رتّب الفكرة: ماذا يحتاج النبات؟",opts:["الماء والضوء","الألعاب","الحلوى"],ans:0},
- {q:"تحدي الحواس: ماذا نستخدم للشم؟",opts:["العين","الأنف","القدم"],ans:1},
- {q:"تحدي الحيوانات: أيها يعيش في الماء؟",opts:["السمك","الجمل","القطة"],ans:0},
- {q:"تحدي النظافة: متى نغسل اليدين؟",opts:["قبل الطعام","لا نغسلهما أبدًا","بعد اتساخهما فقط دون صابون"],ans:0}
-];
-function read(key,fallback){try{const x=localStorage.getItem(key);return x===null?fallback:JSON.parse(x)}catch(e){return fallback}}
-let state=read("qaisAcademyState",{score:0,correct:0,completed:[],answered:[],name:""});
-if(!state||typeof state!=="object")state={score:0,correct:0,completed:[],answered:[],name:""};
-state.score=Number(state.score)||0;state.correct=Number(state.correct)||0;
-state.completed=Array.isArray(state.completed)?state.completed:[];
-state.answered=Array.isArray(state.answered)?state.answered:[];
-let currentLesson=lessons[0],quizIndex=0,quizLocked=false,gameLocked=false;
-function persist(){try{localStorage.setItem("qaisAcademyState",JSON.stringify(state))}catch(e){}}
-function go(page){
- document.querySelectorAll(".page").forEach(el=>el.classList.add("hidden"));
- const target=document.getElementById("page-"+page);
- if(target)target.classList.remove("hidden");
- document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- if(page==="units")renderUnits();
- if(page==="achievements")renderBadges();
- if(page==="quiz")showQuestion();
- if(page==="games")newGame();
- window.scrollTo({top:0,behavior:"smooth"});
-}
-function renderUnits(){
- const groups={};
- lessons.forEach((l,i)=>(groups[l.unit]??=[]).push({l,i}));
- document.getElementById("unitList").innerHTML=Object.entries(groups).map(([name,items])=>
- `<div class="unit"><h3>${name}</h3><p class="small">${items.length} دروس تعليمية</p>`+
- items.map(({l,i})=>`<button class="lessonBtn ${state.completed.includes(i)?"done":""}" onclick="openLesson(${i})">${state.completed.includes(i)?"✅":"📘"} ${l.title}</button>`).join("")+
- `</div>`).join("");
-}
-function openLesson(i){
- currentLesson=lessons[i];
- document.getElementById("lessonUnit").textContent=currentLesson.unit;
- document.getElementById("lessonTitle").textContent=currentLesson.title;
- document.getElementById("lessonEmoji").textContent=currentLesson.emoji;
- document.getElementById("lessonText").textContent=currentLesson.text;
- document.getElementById("lessonTip").textContent=currentLesson.tip;
- go("lesson");
-}
-function completeLesson(){
- const i=lessons.indexOf(currentLesson);
- if(!state.completed.includes(i)){state.completed.push(i);state.score+=2;persist();updateUI();alert("أحسنت! أكملت الدرس وربحت نقطتين ⭐")}
- else alert("هذا الدرس مكتمل بالفعل. تابع التعلّم!");
- renderUnits();
-}
-function updateUI(){
- document.getElementById("score").textContent=state.score;
- document.getElementById("correct").textContent=state.correct;
- document.getElementById("completed").textContent=state.completed.length;
- document.getElementById("progressBar").style.width=(state.completed.length/lessons.length*100)+"%";
- document.getElementById("progressText").textContent="أكملت "+state.completed.length+" من "+lessons.length+" دروس ("+Math.round(state.completed.length/lessons.length*100)+"%).";
- document.getElementById("studentGreeting").textContent=state.name?"أهلًا يا "+state.name+"، واصل التقدم!":"كل درس جديد خطوة نحو النجاح!";
- document.getElementById("studentName").value=state.name||"";
-}
-function speak(text){
- if(!("speechSynthesis" in window)){alert("متصفحك لا يدعم القراءة الصوتية.");return}
- speechSynthesis.cancel();
- const msg=new SpeechSynthesisUtterance(text);msg.lang="ar";msg.rate=.85;
- const voices=speechSynthesis.getVoices();
- const voice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("ar"));
- if(voice)msg.voice=voice;
- speechSynthesis.speak(msg);
-}
-function stopVoice(){if("speechSynthesis" in window)speechSynthesis.cancel()}
-function showQuestion(){
- quizLocked=false;
- const pool=lessons.map((l,i)=>({q:l.q,opts:l.opts,ans:l.ans,id:"l"+i})).concat(extra.map((q,i)=>({...q,id:"e"+i})));
- if(quizIndex>=pool.length)quizIndex=0;
- const q=pool[quizIndex++];
- if(state.answered.includes(q.id)){showQuestion();return}
- document.getElementById("quizFeedback").textContent="";
- const area=document.getElementById("quizArea");
- area.replaceChildren();
- const title=document.createElement("h3");title.textContent=q.q;area.appendChild(title);
- q.opts.forEach((answer,i)=>{
-  const b=document.createElement("button");b.className="option";b.textContent=answer;
-  b.onclick=()=>answerQuestion(q,i,b,area);
-  area.appendChild(b);
- });
-}
-function answerQuestion(q,i,button,area){
- if(quizLocked)return;quizLocked=true;
- const buttons=area.querySelectorAll("button");
- buttons.forEach((b,j)=>{b.disabled=true;if(j===q.ans)b.classList.add("correct")});
- if(i===q.ans){
-  state.score++;state.correct++;document.getElementById("quizFeedback").textContent="إجابة صحيحة! أحسنت يا بطل 🎉";
- }else{
-  button.classList.add("wrong");
-  document.getElementById("quizFeedback").textContent="الإجابة الصحيحة مبيّنة باللون الأخضر. تعلّم منها وحاول مجددًا.";
- }
- state.answered.push(q.id);persist();updateUI();
-}
-function nextQuestion(){showQuestion()}
-function newGame(){
- gameLocked=false;
- const q=gamePool[Math.floor(Math.random()*gamePool.length)];
- document.getElementById("gameQuestion").textContent=q.q;
- document.getElementById("gameFeedback").textContent="";
- const area=document.getElementById("gameAnswers");area.replaceChildren();
- q.opts.forEach((answer,i)=>{
-  const b=document.createElement("button");b.className="option";b.textContent=answer;
-  b.onclick=()=>{
-   if(gameLocked)return;gameLocked=true;
-   area.querySelectorAll("button").forEach((x,j)=>{x.disabled=true;if(j===q.ans)x.classList.add("correct")});
-   if(i===q.ans){state.score+=2;state.correct++;document.getElementById("gameFeedback").textContent="رائع! فزت بنقطتين ⭐"}
-   else{b.classList.add("wrong");document.getElementById("gameFeedback").textContent="حاول في التحدي القادم. الإجابة الصحيحة باللون الأخضر."}
-   persist();updateUI();
-  };area.appendChild(b);
- });
-}
-function renderBadges(){
- const badges=[
-  ["🌱","المستكشف","ابدأ أول درس",state.completed.length>=1],
-  ["📚","محب المعرفة","أكمل 4 دروس",state.completed.length>=4],
-  ["🎓","بطل العلوم","أكمل كل الدروس",state.completed.length>=lessons.length],
-  ["⭐","جامع النقاط","اجمع 10 نقاط",state.score>=10],
-  ["🧠","عقل لامع","أجب إجابة صحيحة",state.correct>=1]
- ];
- document.getElementById("badges").innerHTML=badges.map(b=>
- `<div class="stat" style="opacity:${b[3]?1:.55}"><div style="font-size:32px">${b[0]}</div><strong style="font-size:16px">${b[1]}</strong><div class="small">${b[2]}</div><div>${b[3]?"🏅 حصلت عليها":"🔒 لم تُفتح بعد"}</div></div>`).join("");
-}
-function saveName(){
- state.name=document.getElementById("studentName").value.trim().slice(0,30);
- persist();updateUI();alert("تم تحديث الاسم على هذا الجهاز.");
-}
-function resetProgress(){
- if(!confirm("هل تريد إعادة ضبط النقاط والدروس المكتملة؟"))return;
- state={score:0,correct:0,completed:[],answered:[],name:state.name};
- persist();updateUI();renderUnits();renderBadges();showQuestion();alert("تمت إعادة ضبط التقدم.");
-}
-updateUI();
-renderUnits();
-renderBadges();
-showQuestion();
-</script>
-</body>
-</html>
-
-<meta name="theme-color" content="#087f8c">
-<title>أكاديمية قيس للمعلم الذكي</title>
-<style>
-:root{--teal:#087f8c;--dark:#075466;--bg:#f1f8fb;--ink:#183449;--gold:#ffc94d;--green:#16885c}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
-button,input{font:inherit}
-button{border:0;cursor:pointer;border-radius:12px;padding:11px 15px;background:var(--teal);color:white}
-button:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-header{padding:23px 15px;text-align:center;color:white;background:linear-gradient(135deg,#075466,#12a49a)}
-header h1{margin:0;font-size:clamp(25px,5vw,37px)}
-header p{margin:5px 0}
-.wrap{max-width:960px;width:calc(100% - 22px);margin:16px auto 35px}
-.card{background:white;padding:17px;border-radius:18px;margin-bottom:15px;box-shadow:0 4px 18px #18344910}
-h2{color:var(--teal);font-size:23px;margin:0 0 10px}
-h3{margin:8px 0}
-.small{font-size:13px;color:#637b88}
-.hero{display:flex;align-items:center;gap:14px}
-.teacher{font-size:55px;min-width:78px;height:78px;display:grid;place-items:center;background:#e4f7f4;border-radius:50%}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.stat{background:#eaf7f8;border-radius:12px;padding:10px;text-align:center}
-.stat strong{display:block;font-size:23px;color:var(--teal)}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:10px}
-.navbtn{background:#e7f4f6;color:#155366;text-align:center;min-height:65px}
-.navbtn.active{background:var(--teal);color:white}
-.unit{border:1px solid #dbe9ed;border-radius:14px;padding:13px;margin:10px 0}
-.unit h3{color:#155e72}
-.lessonBtn{display:block;width:100%;text-align:right;margin:6px 0;background:#eaf5f7;color:var(--ink)}
-.lessonBtn.done{border-right:5px solid var(--green)}
-.option{display:block;width:100%;margin:8px 0;text-align:right;background:#edf5f7;color:var(--ink);border:1px solid #d7e6eb}
-.option.correct{background:#d9f7e7;border-color:#249762}
-.option.wrong{background:#ffeded;border-color:#d65d5d}
-.feedback{min-height:28px;font-weight:bold}
-.progress{height:12px;border-radius:20px;background:#e5edf0;overflow:hidden}
-.progress div{height:100%;background:#20a77b;width:0;transition:width .3s}
-.primary{background:var(--teal)}
-.gold{background:var(--gold);color:#493700}
-.light{background:#e7f4f6;color:#155366}
-.hidden{display:none!important}
-.lessonText{font-size:17px;line-height:2}
-footer{text-align:center;padding:18px;color:#637b88;font-size:13px}
-input[type=text]{width:100%;padding:11px;border:1px solid #cbdde4;border-radius:10px}
-</style>
-</head>
-<body>
-<header>
-  <div style="font-size:38px">🎓 📚 ⭐</div>
-  <h1>أكاديمية قيس للمعلم الذكي</h1>
-  <p>نتعلّم العلوم بالمرح والذكاء!</p>
-  <div>🌱 الصف الثاني الأساسي</div>
-</header>
-
-<main class="wrap">
-<section class="card hero" id="welcome">
-  <div class="teacher">👨‍🏫</div>
-  <div>
-    <h2>أهلًا بك يا بطل!</h2>
-    <p>أنا المعلم قيس، وسنكتشف معًا أسرار الإنسان والنبات والحيوان والطبيعة.</p>
-    <button onclick="go('units')">ابدأ التعلّم 🚀</button>
-  </div>
-</section>
-
-<section class="card">
-  <h2>🏆 ملف إنجازك</h2>
-  <div class="stats">
-    <div class="stat">النقاط<strong id="score">0</strong></div>
-    <div class="stat">الدروس المكتملة<strong id="completed">0</strong></div>
-    <div class="stat">الإجابات الصحيحة<strong id="correct">0</strong></div>
-  </div>
-  <p class="small" id="studentGreeting">كل درس جديد خطوة نحو النجاح!</p>
-  <div class="progress"><div id="progressBar"></div></div>
-  <p class="small" id="progressText">تقدّمك الدراسي 0%</p>
-</section>
-
-<nav class="card grid" aria-label="القائمة الرئيسية">
-  <button class="navbtn active" data-page="home" onclick="go('home')">🏠 الرئيسية</button>
-  <button class="navbtn" data-page="units" onclick="go('units')">📚 الوحدات</button>
-  <button class="navbtn" data-page="quiz" onclick="go('quiz')">🧠 الاختبارات</button>
-  <button class="navbtn" data-page="games" onclick="go('games')">🎮 الألعاب</button>
-  <button class="navbtn" data-page="achievements" onclick="go('achievements')">🏅 إنجازاتي</button>
-  <button class="navbtn" data-page="settings" onclick="go('settings')">⚙️ الإعدادات</button>
-</nav>
-
-<section id="page-home" class="page">
-  <div class="card">
-    <h2>🌟 ماذا سنتعلم اليوم؟</h2>
-    <div class="grid">
-      <button class="navbtn" onclick="openLesson(0)">👁️ الحواس الخمس</button>
-      <button class="navbtn" onclick="openLesson(1)">🌱 أجزاء النبات</button>
-      <button class="navbtn" onclick="openLesson(2)">🐾 الحيوانات</button>
-      <button class="navbtn" onclick="openLesson(3)">💧 الماء</button>
-    </div>
-  </div>
-  <div class="card">
-    <h2>💡 نصيحة المعلم قيس</h2>
-    <p>العالم الصغير يسأل ويلاحظ ويجرب بأمان. اقرأ كل درس، ثم اختبر معلوماتك!</p>
-    <button onclick="speak('مرحبًا يا بطل. اقرأ دروس العلوم ثم أجب عن الأسئلة لتجمع النقاط. أنت تستطيع النجاح!')">🔊 استمع إلى قيس</button>
-  </div>
-</section>
-
-<section id="page-units" class="page hidden">
-  <div class="card">
-    <h2>📚 وحدات العلوم</h2>
-    <p class="small">دروس تمهيدية مناسبة للعمر، وتحتاج إلى المطابقة مع كتاب العلوم اليمني الرسمي.</p>
-    <div id="unitList"></div>
-  </div>
-</section>
-
-<section id="page-lesson" class="page hidden">
-  <div class="card">
-    <p class="small" id="lessonUnit"></p>
-    <div style="font-size:65px;text-align:center" id="lessonEmoji">🌱</div>
-    <h2 id="lessonTitle"></h2>
-    <div class="lessonText" id="lessonText"></div>
-    <div class="unit"><strong>💡 تذكّر:</strong><p id="lessonTip"></p></div>
-    <button onclick="speak(currentLesson.title+'. '+currentLesson.text+'. تذكّر: '+currentLesson.tip)">🔊 استمع إلى الدرس</button>
-    <button class="light" onclick="stopVoice()">⏹ إيقاف الصوت</button>
-    <button class="gold" onclick="completeLesson()">✅ أكملت الدرس</button>
-    <button class="light" onclick="go('units')">↩️ العودة للوحدات</button>
-  </div>
-</section>
-
-<section id="page-quiz" class="page hidden">
-  <div class="card">
-    <h2>🧠 اختبر معلوماتك</h2>
-    <p>اختر الإجابة الصحيحة، وستعرف النتيجة مباشرة.</p>
     <div id="quizArea"></div>
-    <p id="quizFeedback" class="feedback" aria-live="polite"></p>
-    <button onclick="nextQuestion()">سؤال جديد 🔄</button>
   </div>
 </section>
 
-<section id="page-games" class="page hidden">
-  <div class="card">
-    <h2>🎮 تحدّي العالم الصغير</h2>
-    <p>أكمل التحدي واجمع نقاطًا جديدة!</p>
-    <div id="gameQuestion" class="unit"></div>
-    <div id="gameAnswers"></div>
-    <p id="gameFeedback" class="feedback" aria-live="polite"></p>
-    <button onclick="newGame()">تحدٍّ جديد 🎲</button>
+<section id="games" class="page hidden">
+  <div class="panel">
+    <h2>🎮 تحدي قيس اليوم</h2>
+    <p>أجب عن خمسة أسئلة متنوعة. تحصل على نقاط لكل إجابة صحيحة.</p>
+    <button onclick="startGame()">ابدأ التحدي</button>
+    <div id="gameArea"></div>
+  </div>
+  <div class="panel">
+    <h3>🏅 شاراتك</h3>
+    <div id="badgesList"></div>
   </div>
 </section>
 
-<section id="page-achievements" class="page hidden">
-  <div class="card">
-    <h2>🏅 إنجازاتي وشاراتي</h2>
-    <p>واصل التعلّم لتفتح شارات جديدة.</p>
-    <div class="grid" id="badges"></div>
+<section id="teacher" class="page hidden">
+  <div class="panel">
+    <h2>📊 لوحة متابعة التعلم</h2>
+    <p class="muted">هذه إحصاءات محفوظة على هذا الجهاز لهذا المتصفح، وليست سجلات مركزية لجميع الطلاب.</p>
+    <div class="grid">
+      <div class="stat">اسم الطالب<strong id="teacherName" style="font-size:20px">طالب</strong></div>
+      <div class="stat">النقاط<strong id="teacherPoints">0</strong></div>
+      <div class="stat">نسبة إكمال الدروس<strong id="teacherProgress">0%</strong></div>
+      <div class="stat">أفضل نتيجة<strong id="bestScore">0%</strong></div>
+    </div>
+    <h3>سجل النتائج</h3>
+    <div id="history"></div>
+    <button onclick="exportData()">⬇️ تصدير تقرير الطالب</button>
+    <button class="secondary" onclick="window.print()">🖨️ طباعة التقرير</button>
   </div>
 </section>
 
-<section id="page-settings" class="page hidden">
-  <div class="card">
-    <h2>⚙️ إعدادات الطالب</h2>
-    <label for="studentName">اسم الطالب (اختياري)</label>
-    <input id="studentName" type="text" maxlength="30" placeholder="اكتب اسمك هنا">
-    <button onclick="saveName()">حفظ الاسم</button>
-    <hr style="border:0;border-top:1px solid #e1eaee;margin:20px 0">
-    <button class="light" onclick="speak('مرحبًا بك في أكاديمية قيس للمعلم الذكي. نتعلم كل يوم شيئًا جديدًا.')">🔊 تجربة الصوت</button>
-    <button class="light" onclick="stopVoice()">⏹ إيقاف الصوت</button>
-    <p class="small">يحفظ الموقع التقدم والاسم على هذا الجهاز فقط، ولا يحتاج إلى حساب.</p>
-    <button style="background:#b83e42" onclick="resetProgress()">إعادة ضبط التقدم</button>
+<section id="settings" class="page hidden">
+  <div class="panel">
+    <h2>⚙️ الإعدادات</h2>
+    <label for="voiceSelect">الصوت العربي المتاح على جهازك</label>
+    <select id="voiceSelect"></select>
+    <button onclick="testVoice()">تجربة الصوت</button>
+    <button class="secondary" onclick="stopSpeech()">إيقاف الصوت</button>
+    <hr style="border:0;border-top:1px solid #e3e9f3;margin:20px 0">
+    <h3>بيانات الأكاديمية</h3>
+    <p class="muted">يُحفظ التقدم تلقائيًا في هذا المتصفح. مسح بيانات المتصفح قد يؤدي إلى فقدان البيانات.</p>
+    <button class="secondary" onclick="exportData()">تصدير نسخة احتياطية</button>
+    <label for="importFile">استعادة نسخة احتياطية</label>
+    <input id="importFile" type="file" accept=".json,application/json">
+    <button onclick="importData()">استعادة البيانات</button>
   </div>
-</section>
-
-<section class="card">
-  <h2>📌 ملاحظة تعليمية</h2>
-  <p class="small">هذه دروس علوم تمهيدية للأطفال وليست نقلًا موثقًا من كتاب العلوم اليمني الرسمي. يجب مراجعة محتواها ومطابقته مع الكتاب المعتمد عند توفره. القراءة الصوتية تعتمد على الأصوات المتاحة في متصفح الجهاز.</p>
 </section>
 </main>
 
-<footer>أكاديمية قيس للمعلم الذكي © 2026</footer>
+<footer>أكاديمية قيس للمعلم الذكي © <span id="year"></span><br>التعلم رحلة، وكل يوم فرصة جديدة للنجاح 🌟</footer>
 
 <script>
-const lessons=[
- {unit:"الوحدة الأولى: الإنسان والحواس",title:"الحواس الخمس",emoji:"👁️",text:"لدينا خمس حواس تساعدنا على معرفة ما حولنا. نستخدم العينين للبصر، والأذنين للسمع، والأنف للشم، واللسان للتذوق، والجلد للمس.",tip:"لا تتذوق أبدًا شيئًا مجهولًا.",q:"بأي حاسة نسمع صوت العصفور؟",opts:["البصر","السمع","الشم"],ans:1},
- {unit:"الوحدة الثانية: النباتات",title:"أجزاء النبات",emoji:"🌱",text:"للنبات جذور وساق وأوراق، وقد تكون له أزهار وثمار. تمتص الجذور الماء من التربة، وتساعد الأوراق النبات على صنع غذائه.",tip:"يحتاج النبات إلى الماء والضوء والهواء لينمو.",q:"أي جزء يمتص الماء من التربة؟",opts:["الأزهار","الجذور","الثمار"],ans:1},
- {unit:"الوحدة الثالثة: الحيوانات",title:"الحيوانات وبيئاتها",emoji:"🐾",text:"تعيش الحيوانات في بيئات مختلفة. يعيش السمك في الماء، ويعيش الجمل على اليابسة، وتعيش طيور كثيرة في الأشجار أو تطير في الهواء.",tip:"تحتاج الحيوانات إلى الغذاء والماء والهواء ومكان مناسب للعيش.",q:"أين يعيش السمك عادة؟",opts:["في الماء","في الصحراء","في الأشجار فقط"],ans:0},
- {unit:"الوحدة الرابعة: الماء والطقس",title:"الماء وأهميته",emoji:"💧",text:"نستخدم الماء للشرب والطبخ والتنظيف وري النباتات. يحتاج الإنسان والحيوان والنبات إلى الماء، لذلك علينا المحافظة عليه.",tip:"أغلق الصنبور عندما لا تحتاج إلى الماء.",q:"كيف نحافظ على الماء؟",opts:["نترك الصنبور مفتوحًا","نهدر الماء","نغلق الصنبور بعد الاستخدام"],ans:2},
- {unit:"الوحدة الرابعة: الماء والطقس",title:"الطقس",emoji:"🌦️",text:"قد يكون الطقس مشمسًا أو غائمًا أو ممطرًا أو عاصفًا. نلاحظ الطقس من حولنا ونختار الملابس المناسبة له.",tip:"ابقَ في مكان آمن أثناء العواصف.",q:"ماذا نرى عادة عند هطول المطر؟",opts:["ماء ينزل من الغيوم","نار من السماء","رمال فقط"],ans:0},
- {unit:"الوحدة الخامسة: الغذاء والصحة",title:"الغذاء الصحي",emoji:"🍎",text:"يساعدنا الغذاء المتنوع على النمو والنشاط. ومن الأطعمة المفيدة الفواكه والخضروات والحبوب وغيرها من الأطعمة المناسبة لأجسامنا.",tip:"اغسل يديك والفواكه قبل تناول الطعام.",q:"أي عادة تساعد على النظافة قبل الأكل؟",opts:["ترك اليدين متسختين","غسل اليدين","لمس الطعام بأيد متسخة"],ans:1},
- {unit:"الوحدة الخامسة: الغذاء والصحة",title:"النظافة الشخصية",emoji:"🧼",text:"نحافظ على صحتنا بغسل اليدين بالماء والصابون وتنظيف الأسنان والمحافظة على نظافة الجسم والمكان.",tip:"اغسل يديك قبل الأكل وبعد استخدام دورة المياه.",q:"بماذا نغسل أيدينا؟",opts:["الماء والصابون","التراب","الزيت فقط"],ans:0},
- {unit:"الوحدة السادسة: السلامة",title:"السلامة في حياتنا",emoji:"⚠️",text:"نحافظ على سلامتنا بالابتعاد عن النار والأدوات الحادة والكهرباء. لا نلمس الأشياء الخطرة ونطلب مساعدة شخص بالغ.",tip:"لا تلمس الأسلاك أو المقابس الكهربائية.",q:"ماذا تفعل إذا وجدت سلكًا مكشوفًا؟",opts:["ألمسه","أبتعد وأخبر شخصًا بالغًا","أصب عليه الماء"],ans:1}
+"use strict";
+
+const KEY = "qais_academy_v2";
+
+const lessons = [
+ {id:1,subject:"science",name:"الكائنات الحية",title:"ما الكائنات الحية؟",text:"الكائنات الحية أشياء تنمو وتحتاج إلى ظروف مناسبة للحياة. من أمثلتها الإنسان والحيوانات والنباتات.",tip:"لاحظ كيف تنمو النبتة وتحتاج إلى الماء والضوء.",question:"أي مما يلي كائن حي؟",options:["الحجر","النبتة","الكرسي"],answer:1},
+ {id:2,subject:"science",name:"النباتات",title:"احتياجات النبات",text:"تحتاج معظم النباتات إلى الماء والضوء والهواء ومواد غذائية من التربة لتنمو.",tip:"اسقِ النبات باعتدال ووفّر له الضوء المناسب.",question:"ما الذي يساعد النبات على النمو؟",options:["الماء والضوء","البلاستيك","الزجاج وحده"],answer:0},
+ {id:3,subject:"science",name:"الحواس",title:"حواس الإنسان",text:"تساعدنا الحواس على معرفة ما حولنا. الحواس الخمس هي البصر والسمع والشم والتذوق واللمس.",tip:"العين للبصر والأذن للسمع والأنف للشم.",question:"بأي حاسة نسمع الأصوات؟",options:["الشم","السمع","التذوق"],answer:1},
+ {id:4,subject:"science",name:"الماء",title:"أهمية الماء",text:"الماء ضروري لحياة الإنسان والحيوان والنبات. علينا المحافظة عليه وعدم الإسراف في استخدامه.",tip:"أغلق صنبور الماء بعد الانتهاء.",question:"لماذا نحافظ على الماء؟",options:["لأنه غير مهم","لأنه ضروري للحياة","لإهداره"],answer:1},
+ {id:5,subject:"math",name:"الجمع",title:"الجمع البسيط",text:"الجمع يعني ضم مجموعتين أو أكثر لمعرفة العدد الكلي.",tip:"استخدم أصابعك أو ارسم الأشياء لتسهيل الجمع.",question:"ما ناتج 3 + 4؟",options:["6","7","8"],answer:1},
+ {id:6,subject:"math",name:"الطرح",title:"الطرح البسيط",text:"الطرح يعني إزالة عدد من مجموعة لمعرفة ما يتبقى.",tip:"ابدأ بالعدد الأكبر ثم ارجع إلى الخلف.",question:"ما ناتج 8 - 3؟",options:["4","5","6"],answer:1},
+ {id:7,subject:"arabic",name:"الجملة",title:"الجملة المفيدة",text:"الجملة المفيدة كلمات مرتبة تعطي معنى تامًا. مثال: يقرأ الطالب الكتاب.",tip:"اقرأ الجملة وتأكد أن معناها واضح.",question:"أي عبارة جملة مفيدة؟",options:["في المدرسة","الطالب يقرأ","على الطاولة"],answer:1},
+ {id:8,subject:"arabic",name:"الأسماء",title:"التعرف على الاسم",text:"الاسم كلمة تدل على إنسان أو حيوان أو شيء أو مكان، مثل طالب وقطة وكتاب ومدرسة.",tip:"ابحث عن أسماء الأشخاص والأشياء من حولك.",question:"أي كلمة اسم؟",options:["يكتب","كتاب","اكتب"],answer:1}
 ];
-const extra=[
- {q:"أي عضو نستخدم للإبصار؟",opts:["العين","الأذن","الأنف"],ans:0},
- {q:"ما الذي تحتاج إليه النباتات للنمو؟",opts:["الماء والضوء","الحجارة فقط","الألعاب"],ans:0},
- {q:"أي حيوان يعيش في الماء؟",opts:["السمكة","الجمل","الدجاجة"],ans:0},
- {q:"أي سلوك يحافظ على البيئة؟",opts:["رمي القمامة في الطريق","وضع القمامة في مكانها","تلويث الماء"],ans:1},
- {q:"أي جزء يحمل أوراق النبات عادة؟",opts:["الساق","التربة","الحجر"],ans:0},
- {q:"كيف نحافظ على سلامتنا قرب الكهرباء؟",opts:["نلمس الأسلاك","نبتعد عن الأسلاك المكشوفة","نصب الماء عليها"],ans:1}
+
+const bank = [
+ ...lessons.map(l=>({subject:l.subject,q:l.question,options:l.options,answer:l.answer,explain:l.tip})),
+ {subject:"science",q:"أي عضو نستخدمه للرؤية؟",options:["العين","الأذن","القدم"],answer:0,explain:"العين تساعدنا على البصر."},
+ {subject:"science",q:"أي سلوك يحافظ على الماء؟",options:["ترك الصنبور مفتوحًا","إغلاق الصنبور بعد الاستخدام","اللعب بالماء بلا حاجة"],answer:1,explain:"إغلاق الصنبور يمنع هدر الماء."},
+ {subject:"math",q:"ما ناتج 2 + 5؟",options:["6","7","8"],answer:1,explain:"اثنان زائد خمسة يساوي سبعة."},
+ {subject:"math",q:"ما ناتج 9 - 4؟",options:["4","5","6"],answer:1,explain:"تسعة ناقص أربعة يساوي خمسة."},
+ {subject:"arabic",q:"ما جمع كلمة كتاب؟",options:["كاتب","كتب","مكتوب"],answer:1,explain:"من جموع كلمة كتاب: كتب."},
+ {subject:"arabic",q:"ما الكلمة التي تدل على فعل؟",options:["مدرسة","يلعب","قلم"],answer:1,explain:"يلعب فعل يدل على حدث."}
 ];
-const gamePool=[
- {q:"رتّب الفكرة: ماذا يحتاج النبات؟",opts:["الماء والضوء","الألعاب","الحلوى"],ans:0},
- {q:"تحدي الحواس: ماذا نستخدم للشم؟",opts:["العين","الأنف","القدم"],ans:1},
- {q:"تحدي الحيوانات: أيها يعيش في الماء؟",opts:["السمك","الجمل","القطة"],ans:0},
- {q:"تحدي النظافة: متى نغسل اليدين؟",opts:["قبل الطعام","لا نغسلهما أبدًا","بعد اتساخهما فقط دون صابون"],ans:0}
-];
-function read(key,fallback){try{const x=localStorage.getItem(key);return x===null?fallback:JSON.parse(x)}catch(e){return fallback}}
-let state=read("qaisAcademyState",{score:0,correct:0,completed:[],answered:[],name:""});
-if(!state||typeof state!=="object")state={score:0,correct:0,completed:[],answered:[],name:""};
-state.score=Number(state.score)||0;state.correct=Number(state.correct)||0;
-state.completed=Array.isArray(state.completed)?state.completed:[];
-state.answered=Array.isArray(state.answered)?state.answered:[];
-let currentLesson=lessons[0],quizIndex=0,quizLocked=false,gameLocked=false;
-function persist(){try{localStorage.setItem("qaisAcademyState",JSON.stringify(state))}catch(e){}}
-function go(page){
- document.querySelectorAll(".page").forEach(el=>el.classList.add("hidden"));
- const target=document.getElementById("page-"+page);
- if(target)target.classList.remove("hidden");
- document.querySelectorAll("[data-page]").forEach(b=>b.classList.toggle("active",b.dataset.page===page));
- if(page==="units")renderUnits();
- if(page==="achievements")renderBadges();
- if(page==="quiz")showQuestion();
- if(page==="games")newGame();
- window.scrollTo({top:0,behavior:"smooth"});
+
+function emptyState(){
+ return {name:"",points:0,completed:[],attempts:0,best:0,history:[],voice:"",awarded:[]};
 }
-function renderUnits(){
- const groups={};
- lessons.forEach((l,i)=>(groups[l.unit]??=[]).push({l,i}));
- document.getElementById("unitList").innerHTML=Object.entries(groups).map(([name,items])=>
- `<div class="unit"><h3>${name}</h3><p class="small">${items.length} دروس تعليمية</p>`+
- items.map(({l,i})=>`<button class="lessonBtn ${state.completed.includes(i)?"done":""}" onclick="openLesson(${i})">${state.completed.includes(i)?"✅":"📘"} ${l.title}</button>`).join("")+
- `</div>`).join("");
+function loadState(){
+ try{
+  const raw=localStorage.getItem(KEY);
+  if(!raw)return emptyState();
+  const d=JSON.parse(raw);
+  const s={...emptyState(),...d};
+  if(!Array.isArray(s.completed)||!Array.isArray(s.history)||!Array.isArray(s.awarded))return emptyState();
+  return s;
+ }catch(e){return emptyState();}
 }
-function openLesson(i){
- currentLesson=lessons[i];
- document.getElementById("lessonUnit").textContent=currentLesson.unit;
- document.getElementById("lessonTitle").textContent=currentLesson.title;
- document.getElementById("lessonEmoji").textContent=currentLesson.emoji;
- document.getElementById("lessonText").textContent=currentLesson.text;
- document.getElementById("lessonTip").textContent=currentLesson.tip;
- go("lesson");
-}
-function completeLesson(){
- const i=lessons.indexOf(currentLesson);
- if(!state.completed.includes(i)){state.completed.push(i);state.score+=2;persist();updateUI();alert("أحسنت! أكملت الدرس وربحت نقطتين ⭐")}
- else alert("هذا الدرس مكتمل بالفعل. تابع التعلّم!");
- renderUnits();
-}
-function updateUI(){
- document.getElementById("score").textContent=state.score;
- document.getElementById("correct").textContent=state.correct;
- document.getElementById("completed").textContent=state.completed.length;
- document.getElementById("progressBar").style.width=(state.completed.length/lessons.length*100)+"%";
- document.getElementById("progressText").textContent="أكملت "+state.completed.length+" من "+lessons.length+" دروس ("+Math.round(state.completed.length/lessons.length*100)+"%).";
- document.getElementById("studentGreeting").textContent=state.name?"أهلًا يا "+state.name+"، واصل التقدم!":"كل درس جديد خطوة نحو النجاح!";
- document.getElementById("studentName").value=state.name||"";
-}
-function speak(text){
- if(!("speechSynthesis" in window)){alert("متصفحك لا يدعم القراءة الصوتية.");return}
- speechSynthesis.cancel();
- const msg=new SpeechSynthesisUtterance(text);msg.lang="ar";msg.rate=.85;
- const voices=speechSynthesis.getVoices();
- const voice=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("ar"));
- if(voice)msg.voice=voice;
- speechSynthesis.speak(msg);
-}
-function stopVoice(){if("speechSynthesis" in window)speechSynthesis.cancel()}
-function showQuestion(){
- quizLocked=false;
- const pool=lessons.map((l,i)=>({q:l.q,opts:l.opts,ans:l.ans,id:"l"+i})).concat(extra.map((q,i)=>({...q,id:"e"+i})));
- if(quizIndex>=pool.length)quizIndex=0;
- const q=pool[quizIndex++];
- if(state.answered.includes(q.id)){showQuestion();return}
- document.getElementById("quizFeedback").textContent="";
- const area=document.getElementById("quizArea");
- area.replaceChildren();
- const title=document.createElement("h3");title.textContent=q.q;area.appendChild(title);
- q.opts.forEach((answer,i)=>{
-  const b=document.createElement("button");b.className="option";b.textContent=answer;
-  b.onclick=()=>answerQuestion(q,i,b,area);
-  area.appendChild(b);
- });
-}
-function answerQuestion(q,i,button,area){
- if(quizLocked)return;quizLocked=true;
- const buttons=area.querySelectorAll("button");
- buttons.forEach((b,j)=>{b.disabled=true;if(j===q.ans)b.classList.add("correct")});
- if(i===q.ans){
-  state.score++;state.correct++;document.getElementById("quizFeedback").textContent="إجابة صحيحة! أحسنت يا بطل 🎉";
- }else{
-  button.classList.add("wrong");
-  document.getElementById("quizFeedback").textContent="الإجابة الصحيحة مبيّنة باللون الأخضر. تعلّم منها وحاول مجددًا.";
- }
- state.answered.push(q.id);persist();updateUI();
-}
-function nextQuestion(){showQuestion()}
-function newGame(){
- gameLocked=false;
- const q=gamePool[Math.floor(Math.random()*gamePool.length)];
- document.getElementById("gameQuestion").textContent=q.q;
- document.getElementById("gameFeedback").textContent="";
- const area=document.getElementById("gameAnswers");area.replaceChildren();
- q.opts.forEach((answer,i)=>{
-  const b=document.createElement("button");b.className="option";b.textContent=answer;
-  b.onclick=()=>{
-   if(gameLocked)return;gameLocked=true;
-   area.querySelectorAll("button").forEach((x,j)=>{x.disabled=true;if(j===q.ans)x.classList.add("correct")});
-   if(i===q.ans){state.score+=2;state.correct++;document.getElementById("gameFeedback").textContent="رائع! فزت بنقطتين ⭐"}
-   else{b.classList.add("wrong");document.getElementById("gameFeedback").textContent="حاول في التحدي القادم. الإجابة الصحيحة باللون الأخضر."}
-   persist();updateUI();
-  };area.appendChild(b);
- });
-}
-function renderBadges(){
- const badges=[
-  ["🌱","المستكشف","ابدأ أول درس",state.completed.length>=1],
-  ["📚","محب المعرفة","أكمل 4 دروس",state.completed.length>=4],
-  ["🎓","بطل العلوم","أكمل كل الدروس",state.completed.length>=lessons.length],
-  ["⭐","جامع النقاط","اجمع 10 نقاط",state.score>=10],
-  ["🧠","عقل لامع","أجب إجابة صحيحة",state.correct>=1]
- ];
- document.getElementById("badges").innerHTML=badges.map(b=>
- `<div class="stat" style="opacity:${b[3]?1:.55}"><div style="font-size:32px">${b[0]}</div><strong style="font-size:16px">${b[1]}</strong><div class="small">${b[2]}</div><div>${b[3]?"🏅 حصلت عليها":"🔒 لم تُفتح بعد"}</div></div>`).join("");
+let state=loadState();
+let currentQuiz=null;
+let gameQuestions=[];
+let gameIndex=0;
+let gameScore=0;
+let gameDone=false;
+let quizLocked=false;
+let quizQuestions=[];
+let quizIndex=0;
+let quizScore=0;
+let quizMode="quiz";
+let availableVoices=[];
+
+function saveState(){
+ try{localStorage.setItem(KEY,JSON.stringify(state));}
+ catch(e){alert("تعذر الحفظ. قد تكون مساحة التخزين ممتلئة.");}
+ renderStats();
 }
 function saveName(){
- state.name=document.getElementById("studentName").value.trim().slice(0,30);
- persist();updateUI();alert("تم تحديث الاسم على هذا الجهاز.");
+ state.name=document.getElementById("studentName").value.trim().slice(0,40);
+ saveState();renderHome();
 }
-function resetProgress(){
- if(!confirm("هل تريد إعادة ضبط النقاط والدروس المكتملة؟"))return;
- state={score:0,correct:0,completed:[],answered:[],name:state.name};
- persist();updateUI();renderUnits();renderBadges();showQuestion();alert("تمت إعادة ضبط التقدم.");
+function showPage(id){
+ stopSpeech();
+ document.querySelectorAll(".page").forEach(p=>p.classList.add("hidden"));
+ document.getElementById(id).classList.remove("hidden");
+ document.querySelectorAll("nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===id));
+ if(id==="lessons")renderLessons();
+ if(id==="teacher")renderTeacher();
+ if(id==="games")renderBadges();
+ if(id==="home")renderHome();
+ if(id==="quiz")startQuiz();
+ window.scrollTo({top:0,behavior:"smooth"});
 }
-updateUI();
-renderUnits();
-renderBadges();
-showQuestion();
+document.querySelectorAll("nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+
+function renderHome(){
+ document.getElementById("studentName").value=state.name;
+ document.getElementById("welcome").textContent=state.name?"مرحبًا يا "+state.name+"! سعيدون بتعلمك معنا.":"اكتب اسمك لتبدأ رحلتك التعليمية.";
+ document.getElementById("dailyMessage").textContent=state.completed.length===lessons.length?"رائع! أكملت جميع الدروس النموذجية. استمر في المراجعة!":"كل خطوة صغيرة تقربك من النجاح. هيا نتعلم!";
+ renderStats();
+}
+function renderStats(){
+ document.getElementById("points").textContent=state.points;
+ document.getElementById("completed").textContent=state.completed.length;
+ document.getElementById("attempts").textContent=state.attempts;
+ document.getElementById("badgesCount").textContent=state.awarded.length;
+ const pct=Math.round(state.completed.length/lessons.length*100);
+ document.getElementById("progressBar").style.width=pct+"%";
+ document.getElementById("progressText").textContent=`أنجزت ${state.completed.length} من ${lessons.length} دروس (${pct}%).`;
+}
+function renderLessons(){
+ const el=document.getElementById("lessonList");
+ el.innerHTML="";
+ lessons.forEach(l=>{
+  const done=state.completed.includes(l.id);
+  const div=document.createElement("div");div.className="lesson-card";
+  const h=document.createElement("h3");h.textContent=(done?"✅ ":"📘 ")+l.title;
+  const p=document.createElement("p");p.textContent=l.name+" · "+subjectName(l.subject);
+  const b=document.createElement("button");b.textContent=done?"مراجعة الدرس":"افتح الدرس";b.onclick=()=>openLesson(l.id);
+  div.append(h,p,b);el.append(div);
+ });
+}
+function subjectName(s){return {science:"العلوم",math:"الرياضيات",arabic:"اللغة العربية"}[s]||s;}
+function openLesson(id){
+ const l=lessons.find(x=>x.id===id);if(!l)return;
+ const el=document.getElementById("lessonView");el.classList.remove("hidden");el.innerHTML="";
+ const h=document.createElement("h2");h.textContent=l.title;
+ const sub=document.createElement("p");sub.className="muted";sub.textContent=subjectName(l.subject);
+ const text=document.createElement("p");text.textContent=l.text;
+ const tip=document.createElement("div");tip.className="success";tip.textContent="💡 تذكّر: "+l.tip;
+ const listen=document.createElement("button");listen.textContent="🔊 استمع إلى شرح قيس";listen.onclick=()=>speak(l.title+". "+l.text+". تذكّر: "+l.tip);
+ const stop=document.createElement("button");stop.className="secondary";stop.textContent="إيقاف الصوت";stop.onclick=stopSpeech;
+ const done=document.createElement("button");done.textContent=state.completed.includes(id)?"تم إكمال الدرس ✓":"أنهيت الدرس +10 نقاط";
+ done.onclick=()=>completeLesson(id);
+ const quiz=document.createElement("button");quiz.className="secondary";quiz.textContent="اختبر فهمك";quiz.onclick=()=>{document.getElementById("quizSubject").value=l.subject;showPage("quiz");};
+ el.append(h,sub,text,tip,listen,stop,done,quiz);
+ el.scrollIntoView({behavior:"smooth",block:"start"});
+}
+function completeLesson(id){
+ if(state.completed.includes(id)){alert("هذا الدرس مكتمل من قبل.");return;}
+ state.completed.push(id);state.points+=10;checkAwards();saveState();renderLessons();openLesson(id);
+ alert("أحسنت! حصلت على 10 نقاط ⭐");
+}
+function shuffle(arr){
+ const a=arr.slice();
+ for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}
+ return a;
+}
+function startQuiz(){
+ quizMode="quiz";quizIndex=0;quizScore=0;quizLocked=false;
+ const subject=document.getElementById("quizSubject").value;
+ const pool=bank.filter(q=>subject==="all"||q.subject===subject);
+ quizQuestions=shuffle(pool).slice(0,Math.min(5,pool.length));
+ renderQuestion("quizArea");
+}
+function startGame(){
+ gameQuestions=shuffle(bank).slice(0,5);gameIndex=0;gameScore=0;gameDone=false;
+ renderGameQuestion();
+}
+function renderQuestion(areaId){
+ const el=document.getElementById(areaId);el.innerHTML="";
+ if(quizIndex>=quizQuestions.length){
+  finishRound(quizScore,quizQuestions.length,quizMode);
+  el.innerHTML="<div class='success'><h3>انتهى الاختبار!</h3><p>نتيجتك: "+quizScore+" من "+quizQuestions.length+"</p><button onclick='startQuiz()'>اختبار جديد</button></div>";
+  return;
+ }
+ const q=quizQuestions[quizIndex];
+ const h=document.createElement("h3");h.textContent=`السؤال ${quizIndex+1} من ${quizQuestions.length}`;
+ const question=document.createElement("p");question.textContent=q.q;
+ const listen=document.createElement("button");listen.className="secondary";listen.textContent="🔊 استمع للسؤال";listen.onclick=()=>speak(q.q+". "+q.options.join(". "));
+ el.append(h,question,listen);
+ q.options.forEach((opt,i)=>{
+  const b=document.createElement("button");b.className="option";b.textContent=opt;
+  b.onclick=()=>answerQuiz(i,areaId,b);el.append(b);
+ });
+}
+function answerQuiz(index,areaId,button){
+ if(quizLocked)return;quizLocked=true;
+ const q=quizQuestions[quizIndex];const el=document.getElementById(areaId);
+ el.querySelectorAll(".option").forEach((b,i)=>{b.disabled=true;if(i===q.answer)b.style.border="2px solid #15976b";});
+ const correct=index===q.answer;
+ if(correct)quizScore++;
+ const feedback=document.createElement("div");feedback.className=correct?"success":"warning";
+ feedback.textContent=(correct?"إجابة صحيحة! أحسنت. ":"ليست الإجابة الصحيحة. ")+q.explain;
+ el.append(feedback);
+ const next=document.createElement("button");next.textContent=quizIndex===quizQuestions.length-1?"عرض النتيجة":"السؤال التالي";
+ next.onclick=()=>{quizIndex++;quizLocked=false;renderQuestion(areaId);};
+ el.append(next);
+}
+function renderGameQuestion(){
+ const el=document.getElementById("gameArea");el.innerHTML="";
+ if(gameIndex>=gameQuestions.length){
+  gameDone=true;
+  finishRound(gameScore,gameQuestions.length,"game");
+  const p=document.createElement("p");p.className="success";p.textContent=`انتهى التحدي! نتيجتك ${gameScore} من ${gameQuestions.length}.`;
+  const b=document.createElement("button");b.textContent="تحدٍ جديد";b.onclick=startGame;el.append(p,b);return;
+ }
+ const q=gameQuestions[gameIndex];
+ const h=document.createElement("h3");h.textContent=`التحدي ${gameIndex+1} من ${gameQuestions.length}`;
+ const p=document.createElement("p");p.textContent=q.q;el.append(h,p);
+ q.options.forEach((opt,i)=>{
+  const b=document.createElement("button");b.className="option";b.textContent=opt;
+  b.onclick=()=>{
+   el.querySelectorAll("button").forEach(x=>x.disabled=true);
+   const correct=i===q.answer;if(correct)gameScore++;
+   const f=document.createElement("div");f.className=correct?"success":"warning";f.textContent=(correct?"أحسنت! ":"حاول مرة أخرى. ")+q.explain;el.append(f);
+   const n=document.createElement("button");n.textContent="التالي";n.onclick=()=>{gameIndex++;renderGameQuestion();};el.append(n);
+  };el.append(b);
+ });
+}
+function finishRound(score,total,mode){
+ if(total<1)return;
+ state.attempts++;
+ state.best=Math.max(state.best,Math.round(score/total*100));
+ state.points+=score*5;
+ state.history.unshift({date:new Date().toLocaleString("ar"),mode,score,total,percent:Math.round(score/total*100)});
+ state.history=state.history.slice(0,30);
+ checkAwards();saveState();
+}
+function checkAwards(){
+ const possible=[
+  {id:"first",name:"بداية النجاح 🌟",test:()=>state.completed.length>=1},
+  {id:"five",name:"محب التعلم 📚",test:()=>state.completed.length>=5},
+  {id:"all",name:"بطل الدروس 🏆",test:()=>state.completed.length>=lessons.length},
+  {id:"points",name:"جامع النقاط ⭐",test:()=>state.points>=50},
+  {id:"quiz",name:"مستكشف الاختبارات 🧠",test:()=>state.attempts>=3}
+ ];
+ possible.forEach(b=>{if(b.test()&&!state.awarded.includes(b.id))state.awarded.push(b.id);});
+}
+function renderBadges(){
+ const names={first:"بداية النجاح 🌟",five:"محب التعلم 📚",all:"بطل الدروس 🏆",points:"جامع النقاط ⭐",quiz:"مستكشف الاختبارات 🧠"};
+ const el=document.getElementById("badgesList");el.innerHTML="";
+ if(!state.awarded.length){el.textContent="أكمل الدروس والاختبارات لتربح أول شارة!";return;}
+ state.awarded.forEach(id=>{const s=document.createElement("span");s.className="badge";s.textContent=names[id]||id;el.append(s);});
+}
+function renderTeacher(){
+ document.getElementById("teacherName").textContent=state.name||"طالب";
+ document.getElementById("teacherPoints").textContent=state.points;
+ document.getElementById("teacherProgress").textContent=Math.round(state.completed.length/lessons.length*100)+"%";
+ document.getElementById("bestScore").textContent=state.best+"%";
+ const el=document.getElementById("history");el.innerHTML="";
+ if(!state.history.length){el.textContent="لا توجد نتائج مسجلة بعد.";return;}
+ state.history.forEach(r=>{
+  const p=document.createElement("p");p.className="lesson-card";
+  p.textContent=`${r.date} — ${r.mode==="game"?"التحدي":"الاختبار"}: ${r.score}/${r.total} (${r.percent}%)`;
+  el.append(p);
+ });
+}
+function speak(text){
+ if(!("speechSynthesis" in window)){alert("ميزة الصوت غير مدعومة في هذا المتصفح.");return;}
+ stopSpeech();
+ const u=new SpeechSynthesisUtterance(text);u.lang="ar";
+ const selected=document.getElementById("voiceSelect").value||state.voice;
+ const voice=availableVoices.find(v=>v.name===selected);
+ if(voice)u.voice=voice;
+ u.rate=0.9;u.pitch=1;
+ window.speechSynthesis.speak(u);
+}
+function stopSpeech(){if("speechSynthesis" in window)window.speechSynthesis.cancel();}
+function loadVoices(){
+ if(!("speechSynthesis" in window))return;
+ availableVoices=window.speechSynthesis.getVoices();
+ const select=document.getElementById("voiceSelect");
+ const previous=state.voice;
+ select.innerHTML="";
+ const defaultOption=document.createElement("option");defaultOption.value="";defaultOption.textContent="الصوت العربي الافتراضي";select.append(defaultOption);
+ availableVoices.filter(v=>v.lang.toLowerCase().startsWith("ar")).forEach(v=>{
+  const o=document.createElement("option");o.value=v.name;o.textContent=v.name+" ("+v.lang+")";select.append(o);
+ });
+ if(previous&&availableVoices.some(v=>v.name===previous))select.value=previous;
+}
+if("speechSynthesis" in window){
+ loadVoices();window.speechSynthesis.onvoiceschanged=loadVoices;
+}
+document.getElementById("voiceSelect").addEventListener("change",e=>{state.voice=e.target.value;saveState();});
+function testVoice(){speak("مرحبًا! أنا قيس، معلمك الذكي. هيا نتعلم معًا.");}
+function exportData(){
+ const blob=new Blob([JSON.stringify(state,null,2)],{type:"application/json"});
+ const url=URL.createObjectURL(blob);const a=document.createElement("a");
+ a.href=url;a.download="qais-student-progress.json";a.click();URL.revokeObjectURL(url);
+}
+function importData(){
+ const file=document.getElementById("importFile").files[0];
+ if(!file){alert("اختر ملف نسخة احتياطية أولًا.");return;}
+ const reader=new FileReader();
+ reader.onload=()=>{
+  try{
+   const d=JSON.parse(reader.result);
+   if(!d||!Array.isArray(d.completed)||!Array.isArray(d.history)||!Array.isArray(d.awarded)||typeof d.points!=="number")throw new Error("invalid");
+   if(!confirm("سيتم استبدال التقدم الحالي بالبيانات المستوردة. هل تريد المتابعة؟"))return;
+   state={...emptyState(),...d};saveState();renderHome();renderLessons();renderTeacher();renderBadges();
+   alert("تمت استعادة النسخة الاحتياطية.");
+  }catch(e){alert("الملف غير صالح أو ليس نسخة احتياطية من الأكاديمية.");}
+ };
+ reader.readAsText(file);
+}
+document.getElementById("year").textContent=new Date().getFullYear();
+renderHome();renderLessons();renderBadges();
 </script>
 </body>
 </html>
-w)){alert("عذرًا، متصفحك لا يدعم القراءة الصوتية.");return}
- speechSynthesis.cancel();
- const msg=new SpeechSynthesisUtterance(text);
- msg.lang="ar";
- msg.rate=.85;
- const voices=speechSynthesis.getVoices();
- const arabic=voices.find(v=>v.lang&&v.lang.toLowerCase().startsWith("ar"));
- if(arabic)msg.voice=arabic;
- speechSynthesis.speak(msg);
-}
-function stopVoice(){if("speechSynthesis" in window)speechSynthesis.cancel()}
-function buildQuestionOrder(){
- questionOrder=lessons.map((_,i)=>({type:"lesson",i}));
- extraQuestions.forEach((_,i)=>questionOrder.push({type:"extra",i}));
- for(let i=questionOrder.length-1;i>0;i--){
-  const j=Math.floor(Math.random()*(i+1));
-  [questionOrder[i],questionOrder[j]]=[questionOrder[j],questionOrder[i]];
- }
- questionIndex=0;
-}
-function newQuestion(){
- locked=false;
- if(questionOrder.length===0)buildQuestionOrder();
- if(questionIndex>=questionOrder.length)buildQuestionOrder();
- const item=questionOrder[questionIndex++];
- const q=item.type==="lesson"?lessons[item.i]:extraQuestions[item.i];
- const id=item.type+"-"+item.i;
- const done=answered.includes(id);
- document.getElementById("feedback").textContent=done?"لقد أجبت عن هذا السؤال سابقًا؛ جرّب سؤالًا آخر بعد الإجابة.":"";
- document.getElementById("quiz").innerHTML=
- `<div class="question"><h3>${q.q}</h3>${q.opts.map((o,i)=>
- `<button class="option" ${done?"disabled":""} onclick="checkAnswer('${id}',${i},${q.answer},this)">${o}</button>`
- ).join("")}</div>`;
- if(done){document.getElementById("feedback").textContent="هذا السؤال محسوب سابقًا، اختر سؤالًا آخر.";setTimeout(newQuestion,900)}
-}
-function checkAnswer(id,choice,answer,button){
- if(locked||answered.includes(id))return;
- locked=true;
- const buttons=document.querySelectorAll(".option");
- buttons.forEach((b,i)=>{b.disabled=true;if(i===answer)b.classList.add("correct")});
- if(choice===answer){
-  score+=1;correct+=1;answered.push(id);
-  document.getElementById("feedback").textContent="أحسنت! إجابة صحيحة 🎉 حصلت على نقطة.";
- }else{
-  button.classList.add("wrong");
-  document.getElementById("feedback").textContent="حاول مرة أخرى في سؤال جديد. الإجابة الصحيحة مبيّنة باللون الأخضر.";
-  answered.push(id);
- }
- updateProgress();
-}
-function resetProgress(){
- if(!confirm("هل تريد حقًا إعادة ضبط النقاط والتقدم؟"))return;
- score=0;correct=0;answered=[];
- updateProgress();
- newQuestion();
-}
-renderLessons();
-showLesson(0);
-updateProgress();
-buildQuestionOrder();
-newQuestion();
-</script>
-</body>
-      </html>
-  
